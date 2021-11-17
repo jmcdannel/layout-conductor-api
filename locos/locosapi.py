@@ -10,9 +10,12 @@ def get_file():
 
 def get(loco_id=None):
   data = get_file()
+  print(data)
   if loco_id is not None:
     loco = [loco for loco in data if loco['address'] == loco_id]
     
+    print(loco_id)
+    print(len(loco))
     if len(loco) == 0:
       abort(404)
     return jsonify(loco[0])
