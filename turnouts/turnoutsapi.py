@@ -69,7 +69,6 @@ if (appConfig['turnouts']['device'] == 'pi' and appConfig['turnouts']['interface
     print(exception.__class__.__name__ + ": " + exception['message'])
 
 def get_file():
-  path = os.path.dirname(__file__) + '/../config/local/turnouts.json'
   with open(path) as json_file:
     data = json.load(json_file)
   return data
