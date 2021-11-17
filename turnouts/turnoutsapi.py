@@ -2,9 +2,8 @@ import os
 from flask import json, jsonify, request, abort
 from config import config
 
-appConfig = config.getConfig()
-layoutId = appConfig['layoutId']
-path = os.path.dirname(__file__) + '/' + layoutId + '.turnouts.json'
+appConfig = config.getCurrentConfig()
+path = os.path.dirname(__file__) + '/../config' + appConfig['layoutId'] + '/turnouts.json'
 arduino = None
 kit = None
 pwm = None
@@ -69,8 +68,8 @@ if (appConfig['turnouts']['device'] == 'pi' and appConfig['turnouts']['interface
     print(exception, False)
     print(exception.__class__.__name__ + ": " + exception['message'])
 
-
 def get_file():
+  path = os.path.dirname(__file__) + '/../config/local/turnouts.json'
   with open(path) as json_file:
     data = json.load(json_file)
   return data
@@ -81,6 +80,8 @@ def _sendCommand(cmd):
     arduino.write(cmd.encode())
 
 def init():
+  
+
   data = get_file()
 
   for trn in data:

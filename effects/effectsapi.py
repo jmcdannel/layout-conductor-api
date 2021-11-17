@@ -12,7 +12,7 @@ pwm = None
 GPIO = None
 
 # Import RPi GPIO
-if ('pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
+if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
   try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
@@ -26,7 +26,7 @@ if ('pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
     print(exception, False)
 
 # Import Arduino Sertal
-if ('arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['arduino']):
+if ('effects' in appConfig and 'arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['arduino']):
   try:
     import serial
     arduino = serial.Serial(appConfig['serial'], 115200)
@@ -40,7 +40,7 @@ if ('arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['ardu
     print(exception, False)
 
 # Import RPi PWM Controller
-if ('pi' in appConfig['effects'] and 'PCA9685' in appConfig['effects']['pi']):
+if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'PCA9685' in appConfig['effects']['pi']):
   try:
     import Adafruit_PCA9685
     pwm = Adafruit_PCA9685.PCA9685()

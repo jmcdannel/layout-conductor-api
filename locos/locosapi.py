@@ -1,16 +1,15 @@
 import os
 from flask import json, jsonify, abort, request
-from config import config
 
-appConfig = config.getConfig()
-layoutId = appConfig['layoutId']
-arduino = None
-path = os.path.dirname(__file__) + '/../../src/config/' + layoutId + '.locos.json'
+path = os.path.dirname(__file__) + '/../config/local/locos.json'
 
+def get_file():
+  with open(path) as json_file:
+    data = json.load(json_file)
+  return data
 
 def get(loco_id=None):
-  with open(path) as loco_file:
-    data = json.load(loco_file)
+  data = get_file()
   if loco_id is not None:
     loco = [loco for loco in data if loco['address'] == loco_id]
     
@@ -20,3 +19,22 @@ def get(loco_id=None):
   else:
     return jsonify(data)
 
+def put(loco_id):
+  data = get_file()
+  locos = [loco for loco in data if loco['address'] == loco_id]
+
+  # validate
+  if len(locos) == 0:
+    abort(404)
+  if not request.json:
+    abort(400)
+
+  loco = locos[0]
+  for key in request.json:
+    loco[key] = request.json.get(key, loco[key])
+
+  # save all keys  
+  with open(path, 'w') as loco_file:
+        json.dump(data, loco_file)
+
+  return jsonify(loco)

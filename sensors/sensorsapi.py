@@ -3,22 +3,7 @@ from flask import json, jsonify, abort, request
 from config import config
 
 appConfig = config.getConfig()
-layoutId = appConfig['layoutId']
 arduino = None
-
-if (appConfig['sensors']['device'] == 'arduino' and appConfig['signals']['interface'] =='serial'):
-  try:
-    import serial
-    arduino = serial.Serial(appConfig['serial'], 115200)
-    print('IMPORTED ARDUINO SERIAL')
-  except ImportError as error:
-    # Output expected ImportErrors.
-    print('serial ImportError')
-    print(error, False)
-  except Exception as exception:
-    # Output unexpected Exceptions.
-    print('Exception')
-    print(exception, False)
 
 def _sendCommand(cmd):
   if arduino is not None:
@@ -26,7 +11,21 @@ def _sendCommand(cmd):
     arduino.write(cmd.encode())
 
 def init():
-  path = os.path.dirname(__file__) + '/' + layoutId + '.sensors.json'
+
+  if (appConfig['sensors']['device'] == 'arduino' and appConfig['signals']['interface'] =='serial'):
+    try:
+      import serial
+      arduino = serial.Serial(appConfig['serial'], 115200)
+      print('IMPORTED ARDUINO SERIAL')
+    except ImportError as error:
+      # Output expected ImportErrors.
+      print('serial ImportError')
+      print(error, False)
+    except Exception as exception:
+      # Output unexpected Exceptions.
+      print('Exception')
+      print(exception, False)
+  path = os.path.dirname(__file__) + '/../config/local/sensors.json'
   with open(path) as sensors_file:
     data = json.load(sensors_file)
 
@@ -35,7 +34,7 @@ def init():
     _sendCommand(cmd)
 
 def get(sensor_id=None):
-  path = os.path.dirname(__file__) + '/' + layoutId + '.sensors.json'
+  path = os.path.dirname(__file__) + '/../config/local/sensors.json'
   with open(path) as sensor_file:
     data = json.load(sensor_file)
   if sensor_id is not None:

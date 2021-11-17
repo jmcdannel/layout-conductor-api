@@ -2,23 +2,11 @@ import os
 from flask import json, jsonify, abort, request
 from config import config
 
-appConfig = config.getConfig()
-layoutId = appConfig['layoutId']
+layoutId = 'traincontrol'
+appConfig = config.getConfig(layoutId)
 arduino = None
 
-if (appConfig['signals']['device'] == 'arduino' and appConfig['signals']['interface'] =='serial'):
-  try:
-    import serial
-    arduino = serial.Serial(appConfig['serial'], 115200)
-    print('IMPORTED ARDUINO SERIAL')
-  except ImportError as error:
-    # Output expected ImportErrors.
-    print('serial ImportError')
-    print(error, False)
-  except Exception as exception:
-    # Output unexpected Exceptions.
-    print('Exception')
-    print(exception, False)
+
 
 def _sendCommand(cmd):
   if arduino is not None:
@@ -26,6 +14,21 @@ def _sendCommand(cmd):
     arduino.write(cmd.encode())
 
 def init():
+  if (appConfig['signals']['device'] == 'arduino' and appConfig['signals']['interface'] =='serial'):
+    try:
+      import serial
+      arduino = serial.Serial(appConfig['serial'], 115200)
+      print('IMPORTED ARDUINO SERIAL')
+    except ImportError as error:
+      # Output expected ImportErrors.
+      print('serial ImportError')
+      print(error, False)
+    except Exception as exception:
+      # Output unexpected Exceptions.
+      print('Exception')
+      print(exception, False)
+
+
   path = os.path.dirname(__file__) + '/' + layoutId + '.signals.json'
   with open(path) as signal_file:
     data = json.load(signal_file)

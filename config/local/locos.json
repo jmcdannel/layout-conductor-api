@@ -1,0 +1,32 @@
+[
+  {
+      "address": 31,
+      "name": "BNSF-5931",
+      "road": "BNSF",
+      "isAcquired": false,
+      "cruiseControl": false,
+      "speed": 0,
+      "forward": null,
+      "idleByDefault": true
+  },
+  {
+      "address": 50,
+      "name": "Amtrack-150",
+      "road": "Amtrack",
+      "isAcquired": false,
+      "cruiseControl": false,
+      "speed": 0,
+      "forward": null,
+      "idleByDefault": true
+  },
+  {
+      "address": 3,
+      "name": "GN-317",
+      "road": "Great Northern",
+      "isAcquired": false,
+      "cruiseControl": false,
+      "speed": 0,
+      "forward": null,
+      "idleByDefault": true
+  }
+]
