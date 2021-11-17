@@ -91,5 +91,5 @@ def update_loco(loco_id):
   return locosapi.put(loco_id)
 
 if __name__ == '__main__':
-    app.run(host=host)
-    # app.run(host='0.0.0.0')
+    # app.run(host=host)
+    app.run(host='0.0.0.0')
