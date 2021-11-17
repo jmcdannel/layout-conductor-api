@@ -3,7 +3,7 @@ from flask import json, jsonify, abort, request
 from config import config
 
 appConfig = config.getCurrentConfig()
-path = os.path.dirname(__file__) + '/../config' + appConfig['layoutId'] + '/locos.json'
+path = os.path.dirname(__file__) + '/../config/' + appConfig['layoutId'] + '/locos.json'
 
 def get_file():
   with open(path) as json_file:

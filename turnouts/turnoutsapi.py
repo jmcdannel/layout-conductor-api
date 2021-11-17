@@ -3,7 +3,7 @@ from flask import json, jsonify, request, abort
 from config import config
 
 appConfig = config.getCurrentConfig()
-path = os.path.dirname(__file__) + '/../config' + appConfig['layoutId'] + '/turnouts.json'
+path = os.path.dirname(__file__) + '/../config/' + appConfig['layoutId'] + '/turnouts.json'
 arduino = None
 kit = None
 pwm = None
