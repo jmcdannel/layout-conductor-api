@@ -11,6 +11,7 @@ def getCurrentConfig():
   config_path = os.path.dirname(__file__) + '/local/config.json'
   with open(config_path) as json_file:
     data = json.load(json_file)
+  print(data)
   return data
 
 def get():
