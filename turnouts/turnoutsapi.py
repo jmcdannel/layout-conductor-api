@@ -95,7 +95,7 @@ def init():
     pwm.set_pwm_freq(60)
 
   if GPIO is not None:
-    path = os.path.dirname(__file__) + '/' + layoutId + '.turnouts.json'
+    path = os.path.dirname(__file__) + '/' + appConfig['layoutId'] + '.turnouts.json'
     with open(path) as turnout_file:
       data = json.load(turnout_file)
 
