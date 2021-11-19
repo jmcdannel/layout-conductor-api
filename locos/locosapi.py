@@ -38,6 +38,8 @@ def put(loco_id):
   for key in request.json:
     loco[key] = request.json.get(key, loco[key])
 
+  print(loco)
+
   # save all keys  
   with open(path, 'w') as loco_file:
         json.dump(data, loco_file)
