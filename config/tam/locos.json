@@ -20,9 +20,19 @@
       "idleByDefault": true
   },
   {
-      "address": 3,
+      "address": 17,
       "name": "GN-317",
       "road": "Great Northern",
+      "isAcquired": false,
+      "cruiseControl": false,
+      "speed": 0,
+      "forward": null,
+      "idleByDefault": true
+  },
+  {
+      "address": 82,
+      "name": "Santa Fe 82",
+      "road": "Santa Fe",
       "isAcquired": false,
       "cruiseControl": false,
       "speed": 0,
