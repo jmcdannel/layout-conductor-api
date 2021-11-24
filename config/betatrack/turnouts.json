@@ -1,0 +1,48 @@
+[
+    {
+        "current": 0,
+        "default": "straight",
+        "divergent": 0,
+        "interface": "cmd-serial",
+        "name": "Station",
+        "pinA": 39,
+        "pinB": 41,
+        "straight": 1,
+        "turnoutId": 101,
+        "type": "kato"
+    },
+    {
+        "current": 0,
+        "default": "straight",
+        "divergent": 105,
+        "interface": "cmd-serial",
+        "name": "Demo Servo",
+        "pin": 28,
+        "straight": 75,
+        "turnoutId": 102,
+        "type": "servo"
+    },
+    {
+        "current": 275,
+        "default": "straight",
+        "divergent": 275,
+        "interface": "cmd-serial",
+        "name": "S. Station Xover",
+        "relay": {
+            "divergent": false,
+            "interface": "jmripi-GPIO",
+            "pin": 31,
+            "straight": true
+        },
+        "relayCrossover": {
+            "divergent": true,
+            "interface": "jmripi-GPIO",
+            "pin": 37,
+            "straight": false
+        },
+        "servo": 5,
+        "straight": 425,
+        "turnoutId": 106,
+        "type": "servo"
+    }
+]

@@ -16,13 +16,8 @@ cors = CORS(app)
 logging.getLogger('flask_cors').level = logging.DEBUG
 
 # configure app
-appConfig = config.getConfig()
-# host = appConfig['apiHost']
+# host = config.appConfig['apiHost']
 host = '0.0.0.0'
-turnoutsapi.init()
-# signalsapi.init()
-effectsapi.init()
-sensorsapi.init()
   
 # /turnouts
 @app.route('/', methods=['GET'])
@@ -40,7 +35,8 @@ def get_turnout(turnout_id):
 
 @app.route('/turnouts/<int:turnout_id>', methods=['PUT'])
 def update_turnout(turnout_id):
-  return turnoutsapi.put(turnout_id)
+  if turnout_id:
+    return turnoutsapi.put(turnout_id)
 
 # /signals
 # @app.route('/signals', methods=['GET'])
@@ -90,6 +86,12 @@ def get_loco(loco_id):
 def update_loco(loco_id):
   return locosapi.put(loco_id)
 
+turnoutsapi.init()
+# signalsapi.init()
+# effectsapi.init()
+# sensorsapi.init()
+
 if __name__ == '__main__':
     # app.run(host=host)
-    app.run(host='0.0.0.0')
+    app.run(host='localhost')
+    # app.run(host='0.0.0.0')

@@ -1,6 +1,7 @@
 import os
 from flask import json, jsonify, request, abort
 
+
 def getConfig():
   config_path = os.path.dirname(__file__) + '/local/config.json'
   with open(config_path) as json_file:
@@ -11,12 +12,107 @@ def getCurrentConfig():
   config_path = os.path.dirname(__file__) + '/local/config.json'
   with open(config_path) as json_file:
     data = json.load(json_file)
-  print(data)
   return data
+
+def getDeviceById(deviceId):
+  return next((device for device in appConfig['devices'] if device['id'] == deviceId), None)
+
+def getDevicesByType(type):
+  return (device for device in appConfig['devices'] if device['type'] == type)
+
+def getInterfaceById(ifaceId):
+  for iface in interfaces:
+    print('getInterfaceById')
+    print(iface.id)
+    if (iface.id == ifaceId) :
+      print('found')
+      print(iface.settings)
+      break
+  else:
+    iface = None
+  return iface
+  
+
+def getInterfacesByType(type):
+  return (iface for iface in interfaces if iface['settings']['type'] == type)
 
 def get():
   data = getConfig()
   return jsonify(data)
+
+class LayoutInterface(object):
+  def __init__(self, id, settings, interface):
+    self.id = id
+    self.settings = settings
+    self.interface = interface
+
+appConfig = getCurrentConfig()
+
+# print(appConfig['interfaces'])
+
+interfaces = []
+
+for interface in appConfig['interfaces']:
+  device = getDeviceById(interface['device'])
+  
+  # Import Arduino Sertal
+  if (interface['type'] == 'serial'):
+    try:
+      import serial
+      interfaces.append(LayoutInterface(interface['id'], interface, serial.Serial(interface['serial'], interface['baud'])))
+      print('Serial Connection Established...')
+    except ImportError as error:
+      print('serial ImportError')
+      print(error, False)
+    except Exception as exception:
+      print('serial Exception')
+      print(exception, False)
+
+  # Import RPi GPIO
+  if (interface['type'] == 'GPIO'):
+    try:
+      import RPi.GPIO as GPIO
+      GPIO.setmode(GPIO.BOARD)
+      interfaces.append(LayoutInterface(interface['id'], interface, GPIO))
+      print('GPIO Mode set to BOARD')
+    except ImportError as error:
+      print('RPi.GPIO ImportError')
+      print(error, False)
+    except Exception as exception:
+      print('RPi.GPIO Exception')
+      print(exception, False)
+
+  # Import RPi PWM Controller
+  if (device['type'] == 'pi' and interface['type'] == 'PCA9685'):
+    try:
+      import Adafruit_PCA9685
+      pcaInterface = Adafruit_PCA9685.PCA9685()
+      pcaInterface.set_pwm_freq(60)
+      interfaces.append(LayoutInterface(interface['id'], interface, pcaInterface))
+      print('Adafruit_PCA9685 PWM board initialized')
+    except ImportError as error:
+      print('Adafruit_PCA9685 ImportError')
+      print(error, False)
+    except Exception as exception:
+      print('Adafruit_PCA9685 Exception')
+      print(exception, False)
+
+  # Import RPi PWM Controller
+  if (device['type'] == 'pi' and interface['type'] == 'ServoKit'):
+    try:
+      from adafruit_servokit import ServoKit
+      interfaces.append(LayoutInterface(interface['id'], interface, ServoKit(channels=16)))
+      print('Loaded adafruit_servokit')
+    except ImportError as error:
+      print('adafruit_servokit ImportError')
+      print(error, False)
+    except Exception as exception:
+      print('adafruit_servokit Exception')
+      print(exception, False)
+
+print('Interfaces initialized')
+print(interfaces)
+
 
 # def getConfig():
 #     pathLocal = os.path.dirname(__file__) + '/../../src/config/config.local.json'

@@ -5,56 +5,56 @@ from config import config
 
 appConfig = config.getConfig()
 layoutId = appConfig['layoutId']
-path = os.path.dirname(__file__) + '/' + layoutId + '.effects.json'
+path = os.path.dirname(__file__) + '/../config/' + appConfig['layoutId'] + '/effects.json'
 arduino = None
 kit = None
 pwm = None
 GPIO = None
 
 # Import RPi GPIO
-if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
-  try:
-    import RPi.GPIO as GPIO
-    GPIO.setmode(GPIO.BOARD)
-  except ImportError as error:
-    # Output expected ImportErrors.
-    print('RPi.GPIO ImportError')
-    print(error, False)
-  except Exception as exception:
-    # Output unexpected Exceptions.
-    print('Exception')
-    print(exception, False)
+# if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
+#   try:
+#     import RPi.GPIO as GPIO
+#     GPIO.setmode(GPIO.BOARD)
+#   except ImportError as error:
+#     # Output expected ImportErrors.
+#     print('RPi.GPIO ImportError')
+#     print(error, False)
+#   except Exception as exception:
+#     # Output unexpected Exceptions.
+#     print('Exception')
+#     print(exception, False)
 
-# Import Arduino Sertal
-if ('effects' in appConfig and 'arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['arduino']):
-  try:
-    import serial
-    arduino = serial.Serial(appConfig['serial'], 115200)
-  except ImportError as error:
-    # Output expected ImportErrors.
-    print('serial ImportError')
-    print(error, False)
-  except Exception as exception:
-    # Output unexpected Exceptions.
-    print('Exception')
-    print(exception, False)
+# # Import Arduino Sertal
+# if ('effects' in appConfig and 'arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['arduino']):
+#   try:
+#     import serial
+#     arduino = serial.Serial(appConfig['serial'], 115200)
+#   except ImportError as error:
+#     # Output expected ImportErrors.
+#     print('serial ImportError')
+#     print(error, False)
+#   except Exception as exception:
+#     # Output unexpected Exceptions.
+#     print('Exception')
+#     print(exception, False)
 
-# Import RPi PWM Controller
-if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'PCA9685' in appConfig['effects']['pi']):
-  try:
-    import Adafruit_PCA9685
-    pwm = Adafruit_PCA9685.PCA9685()
-    servo_min = 150  # Min pulse length out of 4096
-    servo_max = 600  # Max pulse length out of 4096
-    pwm.set_pwm_freq(60)
-  except ImportError as error:
-    # Output expected ImportErrors.
-    print('Adafruit_PCA9685 ImportError')
-    print(error, False)
-  except Exception as exception:
-    # Output unexpected Exceptions.
-    print('Exception')
-    print(exception, False)
+# # Import RPi PWM Controller
+# if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'PCA9685' in appConfig['effects']['pi']):
+#   try:
+#     import Adafruit_PCA9685
+#     pwm = Adafruit_PCA9685.PCA9685()
+#     servo_min = 150  # Min pulse length out of 4096
+#     servo_max = 600  # Max pulse length out of 4096
+#     pwm.set_pwm_freq(60)
+#   except ImportError as error:
+#     # Output expected ImportErrors.
+#     print('Adafruit_PCA9685 ImportError')
+#     print(error, False)
+#   except Exception as exception:
+#     # Output unexpected Exceptions.
+#     print('Exception')
+#     print(exception, False)
 
 def get_file():
   with open(path) as json_file:
