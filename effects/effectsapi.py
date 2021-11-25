@@ -52,21 +52,17 @@ def put(effect_id):
   efx['state'] = state
   
   for action in efx['actions']:
-    print(action)
-    print(action['interface'])
     efxInterface = config.getInterfaceById(action['interface'])
-    print(efxInterface)
-    
-    # actionState = getActionState(efx, action['actionId'], state)
-    # print(action['type'])
-    # print(action['pin'])
-    # print(arduino is None)
     if(efxInterface.settings['type'] == 'DCCOutput'):
       # DCC Output Command
       _sendCommand('<Z %d %s>' % (action['pin'], state), efxInterface.interface)
     elif(efxInterface.settings['type'] == 'serial'):
       # Arduino Serail JSON Output
-      _sendCommand('[{ "pin": %d, "value": %s }]' % (action['pin'], state), efxInterface.interface)
+      if (efx['type'] == 'signal'):
+        signalState = 1 if state == action['actionId'] else 0
+        _sendCommand('[{ "pin": %d, "value": %d, "type": "signal" }]' % (action['pin'], signalState), efxInterface.interface)      
+      else:
+        _sendCommand('[{ "pin": %d, "value": %d, "type": "toggle" } }]' % (action['pin'], state), efxInterface.interface)
     elif(efxInterface.settings['type'] == 'GPIO'):
       # RPi GPIO Output
       efxInterface.interface.output(action['pin'], action['state'])
