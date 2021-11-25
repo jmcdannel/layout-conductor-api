@@ -2,8 +2,7 @@ import os
 from flask import json, jsonify, abort, request
 from config import config
 
-appConfig = config.getCurrentConfig()
-path = os.path.dirname(__file__) + '/../config/' + appConfig['layoutId'] + '/locos.json'
+path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/locos.json'
 
 def get_file():
   with open(path) as json_file:
@@ -27,16 +26,26 @@ def get(loco_id=None):
 def put(loco_id):
   data = get_file()
   locos = [loco for loco in data if loco['address'] == loco_id]
+  payload = request.get_json()
+
+  print('-----payload-----')
+  print(payload)
 
   # validate
   if len(locos) == 0:
     abort(404)
-  if not request.json:
+  if not payload:
     abort(400)
 
   loco = locos[0]
-  for key in request.json:
-    loco[key] = request.json.get(key, loco[key])
+
+  print('-----loco-----')
+  print(loco)
+  for key in payload:
+    print('payloadkey %s = %s' % (key, payload[key]))
+    # print('locokey %s = %s' % (key, loco[key]))
+    loco[key] = payload[key]
+    # loco[key] = request.json.get(key)
 
   print(loco)
 
