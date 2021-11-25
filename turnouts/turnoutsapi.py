@@ -20,6 +20,7 @@ def init():
     if 'relay' in turnout:
       relayInterface = config.getInterfaceById(turnout['relay']['interface'])
       print(turnout['relay']['interface'])
+      print(turnout['relay']['pin'])
       print(relayInterface)
       if relayInterface is not None:
         relayInterface.setup(turnout['relay']['pin'], relayInterface.OUT)
