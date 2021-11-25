@@ -63,9 +63,9 @@ def put(turnout_id):
 
   if turnout['type'] == 'kato' and turnoutInterface.settings['type'] == 'serial':
     if (turnout['current'] == 1):
-      _sendCommand('[{ pin: %d, value: %d }, { pin: %d, value: %d }]' % (turnout['pinB'], 0, turnout['pinA'], 1), turnoutInterface.interface)
+      _sendCommand('[{ "pin": %d, "value": %d }, { "pin": %d, "value": %d }]' % (turnout['pinB'], 0, turnout['pinA'], 1), turnoutInterface.interface)
     elif (turnout['current'] == 0):
-      _sendCommand('[{ pin: %d, value: %d }, { pin: %d, value: %d }]' % (turnout['pinB'], 1, turnout['pinA'], 0), turnoutInterface.interface)
+      _sendCommand('[{ "pin": %d, "value": %d }, { "pin": %d, "value": %d }]' % (turnout['pinB'], 1, turnout['pinA'], 0), turnoutInterface.interface)
  
   if turnout['type'] == 'servo':
     if 'servo' in turnout:
