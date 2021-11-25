@@ -52,15 +52,7 @@ def put(effect_id):
   efx['state'] = state
   
   for action in efx['actions']:
-    print(action)
-    print(action['interface'])
     efxInterface = config.getInterfaceById(action['interface'])
-    print(efxInterface)
-    
-    # actionState = getActionState(efx, action['actionId'], state)
-    # print(action['type'])
-    # print(action['pin'])
-    # print(arduino is None)
     if(efxInterface.settings['type'] == 'DCCOutput'):
       # DCC Output Command
       _sendCommand('<Z %d %s>' % (action['pin'], state), efxInterface.interface)
