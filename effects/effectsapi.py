@@ -66,7 +66,7 @@ def put(effect_id):
       _sendCommand('<Z %d %d>' % (action['pin'], state), efxInterface.interface)
     elif(efxInterface.settings['type'] == 'serial'):
       # Arduino Serail JSON Output
-      _sendCommand('{ "pin": %d, "value": %d }' % (action['pin'], state), efxInterface.interface)
+      _sendCommand('[{ "pin": %d, "value": %d }]' % (action['pin'], state), efxInterface.interface)
     elif(efxInterface.settings['type'] == 'GPIO'):
       # RPi GPIO Output
       efxInterface.interface.output(action['pin'], action['state'])
