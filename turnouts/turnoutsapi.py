@@ -24,7 +24,7 @@ def init():
         if 'relayCrossover' in turnout:
           relayXInterface = config.getInterfaceById(turnout['relayCrossover']['interface'])
           if relayXInterface is not None:
-            relayXInterface.interface.setup(turnout['relayCrossover'], relayXInterface.interface.OUT)
+            relayXInterface.interface.setup(turnout['relayCrossover']['pin'], relayXInterface.interface.OUT)
       
 
 def get(turnout_id=None):
