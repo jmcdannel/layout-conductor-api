@@ -3,85 +3,27 @@ from flask import json, jsonify, abort, request
 from config import config
 # from . import soundfx
 
-appConfig = config.getConfig()
-layoutId = appConfig['layoutId']
-path = os.path.dirname(__file__) + '/../config/' + appConfig['layoutId'] + '/effects.json'
-arduino = None
-kit = None
-pwm = None
-GPIO = None
-
-# Import RPi GPIO
-# if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'GPIO' in appConfig['effects']['pi']):
-#   try:
-#     import RPi.GPIO as GPIO
-#     GPIO.setmode(GPIO.BOARD)
-#   except ImportError as error:
-#     # Output expected ImportErrors.
-#     print('RPi.GPIO ImportError')
-#     print(error, False)
-#   except Exception as exception:
-#     # Output unexpected Exceptions.
-#     print('Exception')
-#     print(exception, False)
-
-# # Import Arduino Sertal
-# if ('effects' in appConfig and 'arduino' in appConfig['effects'] and 'serial' in appConfig['effects']['arduino']):
-#   try:
-#     import serial
-#     arduino = serial.Serial(appConfig['serial'], 115200)
-#   except ImportError as error:
-#     # Output expected ImportErrors.
-#     print('serial ImportError')
-#     print(error, False)
-#   except Exception as exception:
-#     # Output unexpected Exceptions.
-#     print('Exception')
-#     print(exception, False)
-
-# # Import RPi PWM Controller
-# if ('effects' in appConfig and 'pi' in appConfig['effects'] and 'PCA9685' in appConfig['effects']['pi']):
-#   try:
-#     import Adafruit_PCA9685
-#     pwm = Adafruit_PCA9685.PCA9685()
-#     servo_min = 150  # Min pulse length out of 4096
-#     servo_max = 600  # Max pulse length out of 4096
-#     pwm.set_pwm_freq(60)
-#   except ImportError as error:
-#     # Output expected ImportErrors.
-#     print('Adafruit_PCA9685 ImportError')
-#     print(error, False)
-#   except Exception as exception:
-#     # Output unexpected Exceptions.
-#     print('Exception')
-#     print(exception, False)
+path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/effects.json'
 
 def get_file():
   with open(path) as json_file:
     data = json.load(json_file)
   return data
 
-def _sendCommand(cmd):
-  if arduino is not None:
-    print('cmd: %s' % cmd)
-    arduino.write(cmd.encode())
+def _sendCommand(cmd, interface):
+  print('cmd: %s' % cmd)
+  if interface is not None:
+    interface.write(cmd.encode())
 
 def init():
   data = get_file()
   # soundfx.init()
 
-  if arduino is not None:
-    for efx in data:
-      for action in efx['actions']:
-        if action['type'] == 'DCCOutput':
-          _sendCommand('<Z %d %d 0>' % (action['pin'], action['pin']))
-    _sendCommand('<E>')
-
-  if GPIO is not None:
-    for efx in data:
-      for action in efx['actions']:
-        if action['type'] == 'GPIO':
-          GPIO.setup(action['pin'], GPIO.OUT)
+  for efx in data:
+    for action in efx['actions']:
+      actionInterface = config.getInterfaceById(turnout['relay']['interface'])
+      if actionInterface.settings['type'] == 'GPIO':
+        actionInterface.setup(action['pin'], actionInterface.OUT)
 
 def get(effect_id=None):
   data = get_file()
@@ -110,28 +52,24 @@ def put(effect_id):
   efx['state'] = state
   
   for action in efx['actions']:
+    print(action)
+    print(action['interface'])
+    efxInterface = config.getInterfaceById(action['interface'])
+    print(efxInterface)
     
-    actionState = getActionState(efx, action['actionId'], state)
-    print(action['type'])
-    print(action['pin'])
-    print(arduino is None)
-    if(action['type'] == 'DCCOutput' and arduino is not None):
+    # actionState = getActionState(efx, action['actionId'], state)
+    # print(action['type'])
+    # print(action['pin'])
+    # print(arduino is None)
+    if(efxInterface.settings['type'] == 'DCCOutput'):
       # DCC Output Command
-      _sendCommand('<Z %d %d>' % (action['pin'], actionState))
-    elif(action['type'] == 'Arduino Script'):
-      # Arduino Script
-      print('Arduino Script: Not implemented')
-    elif(action['type'] == 'Sound Loop'):
-      # Sound Loop
-      print('Sound Loop: ' + action["sound"])
-      # soundfx.play(action["sound"], 'right')
-    elif(action['type'] == 'Sound'):
-      # Sound
-      print('Sound: ' + action["sound"])
-      # soundfx.play(action["sound"], 'left')
-    elif(action['type'] == 'GPIO' and GPIO is not None):
+      _sendCommand('<Z %d %d>' % (action['pin'], state), efxInterface.interface)
+    elif(efxInterface.settings['type'] == 'serial'):
+      # Arduino Serail JSON Output
+      _sendCommand('{ "pin": %d, "value": %d }' % (action['pin'], state), efxInterface.interface)
+    elif(efxInterface.settings['type'] == 'GPIO'):
       # RPi GPIO Output
-      GPIO.output(action['pin'], action['state'])
+      efxInterface.interface.output(action['pin'], action['state'])
 
   # save
   with open(path, 'w') as json_file:

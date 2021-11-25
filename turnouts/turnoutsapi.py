@@ -44,19 +44,13 @@ def put(turnout_id):
   data = get_file()
   turnouts = [turnout for turnout in data if turnout['turnoutId'] == turnout_id]
 
-  print('def put(turnout_id)')
-  # validate
-  # if len(turnouts) == 0:
-  #   abort(404)
-  # if not request.json:
-  #   abort(400)
+  if len(turnouts) == 0:
+    abort(404)
+  if not request.json:
+    abort(400)
 
   turnout = turnouts[0]
   turnoutInterface = config.getInterfaceById(turnout['interface'])
-
-  print(turnout['interface'])
-  print(turnoutInterface)
-  print(turnoutInterface.settings)
   
   for key in request.json:
     turnout[key] = request.json.get(key, turnout[key])

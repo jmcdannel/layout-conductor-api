@@ -65,6 +65,7 @@ for interface in appConfig['interfaces']:
       print('serial ImportError')
       print(error, False)
     except Exception as exception:
+      interfaces.append(LayoutInterface(interface['id'], interface, None))
       print('serial Exception')
       print(exception, False)
 
@@ -79,6 +80,7 @@ for interface in appConfig['interfaces']:
       print('RPi.GPIO ImportError')
       print(error, False)
     except Exception as exception:
+      interfaces.append(LayoutInterface(interface['id'], interface, None))
       print('RPi.GPIO Exception')
       print(exception, False)
 
@@ -94,6 +96,7 @@ for interface in appConfig['interfaces']:
       print('Adafruit_PCA9685 ImportError')
       print(error, False)
     except Exception as exception:
+      interfaces.append(LayoutInterface(interface['id'], interface, None))
       print('Adafruit_PCA9685 Exception')
       print(exception, False)
 
@@ -107,6 +110,7 @@ for interface in appConfig['interfaces']:
       print('adafruit_servokit ImportError')
       print(error, False)
     except Exception as exception:
+      interfaces.append(LayoutInterface(interface['id'], interface, None))
       print('adafruit_servokit Exception')
       print(exception, False)
 
