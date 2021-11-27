@@ -82,10 +82,8 @@ def put(turnout_id):
 
 def relay(relay, isStraight):
   relayInterface = config.getInterfaceById(relay['interface'])
-  print(relayInterface.settings)
-  print(relayInterface.interface)
   if relayInterface is not None:
     if isStraight is True:
-      relayInterface.interace.output(relay['pin'], relay['straight'])
+      relayInterface.interface.output(relay['pin'], relay['straight'])
     else:
-      relayInterface.interace.output(relay['pin'], relay['divergent'])
+      relayInterface.interface.output(relay['pin'], relay['divergent'])
