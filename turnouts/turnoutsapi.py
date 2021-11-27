@@ -85,7 +85,7 @@ def relay(relay, isStraight):
   if relayInterface is not None:
     if isStraight is True:
       print('change relay %d to straight (%s)' % (relay['pin'], relay['straight']))
-      relayInterface.interface.output(relay['pin'], 1)
+      relayInterface.interface.output(relay['pin'], relay['straight'])
     else:
       print('change relay %d to divergent (%s)' % (relay['pin'], relay['divergent']))
-      relayInterface.interface.output(relay['pin'], 0)
+      relayInterface.interface.output(relay['pin'], relay['divergent'])
