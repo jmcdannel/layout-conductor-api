@@ -19,14 +19,12 @@ def init():
   for turnout in data:
     if 'relay' in turnout:
       relayInterface = config.getInterfaceById(turnout['relay']['interface'])
-      print(turnout['relay']['interface'])
-      print(relayInterface)
       if relayInterface is not None:
-        relayInterface.setup(turnout['relay']['pin'], relayInterface.OUT)
+        relayInterface.interface.setup(turnout['relay']['pin'], relayInterface.interface.OUT)
         if 'relayCrossover' in turnout:
           relayXInterface = config.getInterfaceById(turnout['relayCrossover']['interface'])
           if relayXInterface is not None:
-            relayXInterface.setup(turnout['relayCrossover'], relayXInterface.OUT)
+            relayXInterface.interface.setup(turnout['relayCrossover']['pin'], relayXInterface.interface.OUT)
       
 
 def get(turnout_id=None):
@@ -86,6 +84,8 @@ def relay(relay, isStraight):
   relayInterface = config.getInterfaceById(relay['interface'])
   if relayInterface is not None:
     if isStraight is True:
-      relayInterface.output(relay['pin'], relay['straight'])
+      print('change relay %d to straight (%s)' % (relay['pin'], relay['straight']))
+      relayInterface.interface.output(relay['pin'], relay['straight'])
     else:
-      relayInterface.output(relay['pin'], relay['divergent'])
+      print('change relay %d to divergent (%s)' % (relay['pin'], relay['divergent']))
+      relayInterface.interface.output(relay['pin'], relay['divergent'])

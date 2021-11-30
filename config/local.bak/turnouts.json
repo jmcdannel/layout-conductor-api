@@ -1,7 +1,7 @@
 [
   {
     "abbr": "TS X S1",
-    "current": 425,
+    "current": 275,
     "default": "straight",
     "divergent": 275,
     "label": "TamStation Crossover",
@@ -9,13 +9,11 @@
     "name": "Tamararck Station South Crossover, Switch S1",
     "relay": {
       "divergent": false,
-      "interface": "jmripi-GPIO",
       "pin": 31,
       "straight": true
     },
     "relayCrossover": {
       "divergent": true,
-      "interface": "jmripi-GPIO",
       "pin": 37,
       "straight": false
     },
@@ -26,7 +24,7 @@
   },
   {
     "abbr": "TS S2",
-    "current": 400,
+    "current": 500,
     "default": "straight",
     "divergent": 400,
     "label": "TamStation Green S2",
@@ -35,7 +33,6 @@
     "relay": {
       "divergent": false,
       "pin": 33,
-      "interface": "jmripi-GPIO",
       "straight": true
     },
     "section": "Tamarack South",
@@ -54,7 +51,6 @@
     "relay": {
       "divergent": false,
       "pin": 35,
-      "interface": "jmripi-GPIO",
       "straight": true
     },
     "section": "Tamarack South",
@@ -90,20 +86,20 @@
   },
   {
     "abbr": "TS S6",
-    "current": 270,
+    "current": 300,
     "default": "straight",
-    "divergent": 470,
+    "divergent": 425,
     "label": "TamStation S6",
     "line": "Tamarack Station",
     "name": "Tamararck Station South, Switch S6",
     "section": "Tamarack South",
     "servo": 4,
-    "straight": 270,
+    "straight": 300,
     "turnoutId": 105
   },
   {
     "abbr": "TS S7",
-    "current": 425,
+    "current": 325,
     "default": "straight",
     "divergent": 325,
     "label": "TamStation S7",
@@ -129,28 +125,28 @@
   },
   {
     "abbr": "TS S9",
-    "current": 350,
+    "current": 450,
     "default": "straight",
-    "divergent": 230,
+    "divergent": 300,
     "label": "TamStation S9",
     "line": "Tamarack Station",
     "name": "Tamararck Station South, Switch S9",
     "section": "Tamarack South",
     "servo": 1,
-    "straight": 350,
+    "straight": 450,
     "turnoutId": 102
   },
   {
     "abbr": "TS S10",
-    "current": 100,
+    "current": 240,
     "default": "straight",
-    "divergent": 100,
+    "divergent": 120,
     "label": "TamStation S10",
     "line": "Tamarack Station",
     "name": "Tamararck Station South, Switch S10",
     "section": "Tamarack South",
     "servo": 0,
-    "straight": 260,
+    "straight": 240,
     "turnoutId": 101
   }
 ]
