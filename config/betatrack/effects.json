@@ -1,1 +1,40 @@
-[{"actions": [{"actionId": "toggle", "interface": "cmd-serial", "pin": 49}], "effectId": 201, "name": "Engine Moving Light", "off": 0, "on": 1, "state": 1, "type": "light"}, {"actions": [{"actionId": "greenLED", "interface": "cmd-serial", "pin": 43}, {"actionId": "yellowLED", "interface": "cmd-serial", "pin": 45}, {"actionId": "redLED", "interface": "cmd-serial", "pin": 47}], "effectId": 101, "name": "Track 1 Signal", "state": "green", "type": "signal"}]
+[
+  {
+    "actions": [
+      {
+        "actionId": "toggle",
+        "interface": "cmd-serial",
+        "pin": 49
+      }
+    ],
+    "effectId": 201,
+    "name": "Engine Moving Light",
+    "off": 0,
+    "on": 1,
+    "state": 1,
+    "type": "light"
+  },
+  {
+    "actions": [
+      {
+        "actionId": "greenLED",
+        "pin": 43,
+        "interface": "cmd-serial"
+      },
+      {
+        "actionId": "yellowLED",
+        "pin": 45,
+        "interface": "cmd-serial"
+      },
+      {
+        "actionId": "redLED",
+        "pin": 47,
+        "interface": "cmd-serial"
+      }
+    ],
+    "effectId": 101,
+    "name": "Track 1 Signal",
+    "state": "green",
+    "type": "signal"
+  }
+]

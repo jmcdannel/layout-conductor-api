@@ -1,5 +1,5 @@
 {
-  "layoutId": "betatrack",
+  "layoutId": "tam",
   "name": "Beta Track Junction",
   "modules": [
     "turnouts",
@@ -23,25 +23,10 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/cu.usbmodem143401",
+      "serial": "/dev/ttyACM0",
       "baud": 115200
-    },
-    {
-      "id": "jmripi-GPIO",
-      "type": "GPIO",
-      "device": "jmripi"
-    },
-    {
-      "id": "jmripi-PCA9685",
-      "type": "PCA9685",
-      "device": "jmripi"
-    },
-    {
-      "id": "jmripi-ServoKit",
-      "type": "ServoKit",
-      "device": "jmripi"
     }
   ],
   "apiHost": "localhost",
-  "jmri": "http://localhost:12080/json/"
+  "jmri": "http://traincontrol:12080/json/"
 }
