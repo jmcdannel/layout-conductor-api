@@ -1,5 +1,5 @@
 {
-  "layoutId": "betatrack",
+  "layoutId": "tam",
   "name": "Beta Track Junction",
   "modules": [
     "turnouts",
@@ -23,7 +23,7 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/cu.usbmodem143401",
+      "serial": "/dev/ttyACM0",
       "baud": 115200
     },
     {
