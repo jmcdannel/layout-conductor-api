@@ -65,6 +65,8 @@ def put(turnout_id):
         turnoutInterface.interface.servo[turnout['servo']].angle = turnout['current']
       if turnoutInterface.settings['type'] == 'PCA9685':
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
+      if turnoutInterface.settings['type'] == 'serial':
+        _sendCommand('{ pin: %d, value: %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
     if 'pin' in turnout:
       _sendCommand('{ pin: %d, value: %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
