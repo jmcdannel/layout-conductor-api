@@ -13,6 +13,11 @@
       "desc": "Command Station EX"
     },
     {
+      "type": "arduino",
+      "id": "town",
+      "desc": "Town"
+    },
+    {
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI"
@@ -23,6 +28,13 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
+      "serial": "/dev/ttyACM0",
+      "baud": 115200
+    },
+    {
+      "id": "town-serial",
+      "type": "serial",
+      "device": "town",
       "serial": "/dev/ttyACM0",
       "baud": 115200
     },
