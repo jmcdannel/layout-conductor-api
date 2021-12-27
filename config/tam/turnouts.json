@@ -1,12 +1,10 @@
 [
   {
-    "abbr": "TS X S1",
-    "current": 425,
+    "current": 275,
     "default": "straight",
     "divergent": 275,
-    "label": "TamStation Crossover",
-    "line": "Mainline Red",
-    "name": "Tamararck Station South Crossover, Switch S1",
+    "interface": "jmripi-PCA9685",
+    "name": "TS X S1",
     "relay": {
       "divergent": false,
       "interface": "jmripi-GPIO",
@@ -19,138 +17,130 @@
       "pin": 37,
       "straight": false
     },
-    "section": "Tamarack South",
     "servo": 5,
     "straight": 425,
-    "turnoutId": 106
+    "turnoutId": 106,
+    "type": "servo"
   },
   {
-    "abbr": "TS S2",
-    "current": 400,
+    "current": 500,
     "default": "straight",
     "divergent": 400,
-    "label": "TamStation Green S2",
-    "line": "Mainline Green",
-    "name": "Tamararck Station South, Greenline, Switch S2",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S2",
     "relay": {
       "divergent": false,
-      "pin": 33,
       "interface": "jmripi-GPIO",
+      "pin": 33,
       "straight": true
     },
-    "section": "Tamarack South",
     "servo": 9,
     "straight": 500,
-    "turnoutId": 109
+    "turnoutId": 109,
+    "type": "servo"
   },
   {
-    "abbr": "TS S3",
     "current": 400,
     "default": "straight",
     "divergent": 275,
-    "label": "TamStation Green S3",
-    "line": "Mainline Red",
-    "name": "Tamararck Station South, Redline, Switch S3",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S3",
     "relay": {
       "divergent": false,
-      "pin": 35,
       "interface": "jmripi-GPIO",
+      "pin": 35,
       "straight": true
     },
-    "section": "Tamarack South",
     "servo": 7,
     "straight": 400,
     "turnoutId": 110
   },
   {
-    "abbr": "TS S4",
     "current": 325,
     "default": "straight",
     "divergent": 450,
-    "label": "TamStation S4",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S4",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S4",
     "servo": 8,
     "straight": 325,
-    "turnoutId": 108
+    "turnoutId": 108,
+    "type": "servo"
   },
   {
-    "abbr": "TS S5",
     "current": 300,
     "default": "straight",
     "divergent": 425,
-    "label": "TamStation S5",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S5",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S5",
     "servo": 6,
     "straight": 300,
-    "turnoutId": 107
+    "turnoutId": 107,
+    "type": "servo"
   },
   {
-    "abbr": "TS S6",
     "current": 270,
     "default": "straight",
     "divergent": 470,
-    "label": "TamStation S6",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S6",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S6",
     "servo": 4,
     "straight": 270,
-    "turnoutId": 105
+    "turnoutId": 105,
+    "type": "servo"
   },
   {
-    "abbr": "TS S7",
     "current": 425,
     "default": "straight",
     "divergent": 325,
-    "label": "TamStation S7",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S7",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S7",
     "servo": 3,
     "straight": 425,
-    "turnoutId": 104
+    "turnoutId": 104,
+    "type": "servo"
   },
   {
-    "abbr": "TS S8",
     "current": 500,
     "default": "straight",
     "divergent": 500,
-    "label": "TamStation S8",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S8",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S8",
     "servo": 2,
     "straight": 325,
-    "turnoutId": 103
+    "turnoutId": 103,
+    "type": "servo"
   },
   {
-    "abbr": "TS S9",
-    "current": 350,
+    "current": 230,
     "default": "straight",
     "divergent": 230,
-    "label": "TamStation S9",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S9",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S9",
     "servo": 1,
     "straight": 350,
-    "turnoutId": 102
+    "turnoutId": 102,
+    "type": "servo"
   },
   {
-    "abbr": "TS S10",
     "current": 100,
     "default": "straight",
     "divergent": 100,
-    "label": "TamStation S10",
-    "line": "Tamarack Station",
-    "name": "Tamararck Station South, Switch S10",
-    "section": "Tamarack South",
+    "interface": "jmripi-PCA9685",
+    "name": "TS S10",
     "servo": 0,
     "straight": 260,
-    "turnoutId": 101
+    "turnoutId": 101,
+    "type": "servo"
+  },
+  {
+    "current": 80,
+    "default": "straight",
+    "divergent": 110,
+    "interface": "town-serial",
+    "name": "DT M1",
+    "servo": 0,
+    "straight": 80,
+    "turnoutId": 201,
+    "type": "servo"
   }
 ]
