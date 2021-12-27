@@ -14,6 +14,12 @@ def _sendCommand(cmd, interface):
   if interface is not None:
     interface.write(cmd.encode())
 
+def _sendActionCommand(cmd, interface):
+  turnoutCommand = '{ "action": "servo", "payload:"' + cmd.encode() + '"}'
+  print('actionCmd: %s' % turnoutCommand)
+  if interface is not None:
+    interface.write(turnoutCommand)
+
 def init():
   data = get_file()
   for turnout in data:
@@ -66,7 +72,7 @@ def put(turnout_id):
       if turnoutInterface.settings['type'] == 'PCA9685':
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface.settings['type'] == 'serial':
-        _sendCommand('{ pin: %d, value: %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
+        _sendActionCommand('{ servo: %d, value: %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
     if 'pin' in turnout:
       _sendCommand('{ pin: %d, value: %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
