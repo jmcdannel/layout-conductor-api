@@ -110,6 +110,20 @@ for interface in appConfig['interfaces']:
       print('adafruit_servokit Exception')
       print(exception, False)
 
+  # Import Playsound Python Library
+  if (interface['type'] == 'Python' and interface['id'] == 'playsound'):
+    try:
+      from playsound import playsound
+      interfaces.append(LayoutInterface(interface['id'], interface, playsound))
+      print('Loaded Python playsound')
+    except ImportError as error:
+      print('Python playsound ImportError')
+      print(error, False)
+    except Exception as exception:
+      interfaces.append(LayoutInterface(interface['id'], interface, None))
+      print('Python playsound Exception')
+      print(exception, False)
+
 print('Interfaces initialized')
 print(interfaces)
 

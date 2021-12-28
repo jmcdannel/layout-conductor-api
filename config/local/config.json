@@ -1,6 +1,6 @@
 {
-  "layoutId": "tam",
-  "name": "Tamarack Junction",
+  "layoutId": "betatrack",
+  "name": "Betatrack Junction",
   "modules": [
     "turnouts",
     "locos",
@@ -51,6 +51,11 @@
     {
       "id": "jmripi-ServoKit",
       "type": "ServoKit",
+      "device": "jmripi"
+    },
+    {
+      "id": "playsound",
+      "type": "Python",
       "device": "jmripi"
     }
   ],
