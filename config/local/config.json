@@ -35,7 +35,7 @@
       "id": "town-serial",
       "type": "serial",
       "device": "town",
-      "serial": "/dev/ttyACM0",
+      "serial": "/dev/ttyUSB0",
       "baud": 115200
     },
     {
@@ -46,11 +46,6 @@
     {
       "id": "jmripi-PCA9685",
       "type": "PCA9685",
-      "device": "jmripi"
-    },
-    {
-      "id": "jmripi-ServoKit",
-      "type": "ServoKit",
       "device": "jmripi"
     }
   ],
