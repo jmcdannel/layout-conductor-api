@@ -66,6 +66,10 @@ def put(effect_id):
     elif(efxInterface.settings['type'] == 'GPIO'):
       # RPi GPIO Output
       efxInterface.interface.output(action['pin'], action['state'])
+    elif(efxInterface.settings['type'] == 'Python' and efxInterface.id == 'playsound' and state == 1):
+      wavFile = os.path.dirname(__file__) + '/../sounds/' + action['file']
+      print(wavFile)
+      efxInterface.interface(wavFile)
 
   # save
   with open(path, 'w') as json_file:
