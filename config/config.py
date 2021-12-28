@@ -22,11 +22,7 @@ def getDevicesByType(type):
 
 def getInterfaceById(ifaceId):
   for iface in interfaces:
-    print('getInterfaceById')
-    print(iface.id)
-    if (iface.id == ifaceId) :
-      print('found')
-      print(iface.settings)
+    if (iface.id == ifaceId):
       break
   else:
     iface = None

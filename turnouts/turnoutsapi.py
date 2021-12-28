@@ -15,10 +15,10 @@ def _sendCommand(cmd, interface):
     interface.write(cmd.encode())
 
 def _sendActionCommand(cmd, interface):
-  turnoutCommand = '{ "action": "servo", "payload:"' + cmd.encode() + '"}'
+  turnoutCommand = '{ "action": "servo", "payload:"' + cmd + '"}'
   print('actionCmd: %s' % turnoutCommand)
   if interface is not None:
-    interface.write(turnoutCommand)
+    interface.write(turnoutCommand.encode())
 
 def init():
   data = get_file()
