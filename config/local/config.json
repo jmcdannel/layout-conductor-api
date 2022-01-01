@@ -1,6 +1,6 @@
 {
-  "layoutId": "betatrack",
-  "name": "Betatrack Junction",
+  "layoutId": "tam",
+  "name": "Tamarack Junction",
   "modules": [
     "turnouts",
     "locos",
@@ -46,16 +46,6 @@
     {
       "id": "jmripi-PCA9685",
       "type": "PCA9685",
-      "device": "jmripi"
-    },
-    {
-      "id": "jmripi-ServoKit",
-      "type": "ServoKit",
-      "device": "jmripi"
-    },
-    {
-      "id": "playsound",
-      "type": "Python",
       "device": "jmripi"
     }
   ],
