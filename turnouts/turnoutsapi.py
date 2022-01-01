@@ -72,9 +72,9 @@ def put(turnout_id):
       if turnoutInterface.settings['type'] == 'PCA9685':
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface.settings['type'] == 'serial':
-        _sendActionCommand('{ servo: %d, value: %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
+        _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
     if 'pin' in turnout:
-      _sendCommand('{ pin: %d, value: %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
+      _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
   if 'relay' in turnout:
     relay(turnout['relay'], turnout['current'] == turnout['straight'])
