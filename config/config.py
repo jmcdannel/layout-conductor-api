@@ -55,6 +55,8 @@ def initializeMQTT(on_message):
         print("Connecting to MQTT broker")
         client.connect(interface['address']) #connect to broker
         print('Loaded MQTT')
+        client.loop_start()
+        client.subscribe(interface['id'])
       except ImportError as error:
         print('MQTTImportError')
         print(error, False)
