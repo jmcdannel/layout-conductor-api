@@ -25,7 +25,8 @@ def _sendMQTTCommand(cmd, interface, clientId):
   print('mqttCmd: %s' % turnoutCommand)
   print('mqttClient: %s' % clientId)
   if interface is not None:
-    interface.publish('/turnouts', turnoutCommand)
+    pubRes = interface.publish('/turnouts', turnoutCommand)
+    print(pubRes)
 
 def init():
   data = get_file()
