@@ -43,7 +43,7 @@ class LayoutInterface(object):
     self.interface = interface
 
 def on_log(client, userdata, level, buf):
-    print("log: ",buf)
+  print("log: ",buf)
 
 def initializeMQTT(on_message):
   
