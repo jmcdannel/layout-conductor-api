@@ -42,6 +42,9 @@ class LayoutInterface(object):
     self.settings = settings
     self.interface = interface
 
+def on_log(client, userdata, level, buf):
+    print("log: ",buf)
+
 def initializeMQTT(on_message):
   
   for interface in appConfig['interfaces']:
@@ -52,10 +55,15 @@ def initializeMQTT(on_message):
         import paho.mqtt.client as mqtt #import the client
         print("Creating new MQTT instance")
         client = mqtt.Client(interface['id']) #create new instance
+        client.on_message=on_message
+        client.on_log=on_log
         print("Connecting to MQTT broker")
         client.connect(interface['address']) #connect to broker
-        print('Loaded MQTT')
+        client.connect(interface['id'])
         client.loop_start()
+        print('Loaded MQTT')
+        
+    print("log: ",buf)
         client.subscribe(interface['id'])
       except ImportError as error:
         print('MQTTImportError')
