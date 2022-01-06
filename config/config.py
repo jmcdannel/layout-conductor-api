@@ -61,9 +61,9 @@ def initializeMQTT(on_message):
         client.connect(interface['address']) #connect to broker
         client.connect(interface['id'])
         client.loop_start()
+        client.subscribe('/turnouts')
         print('Loaded MQTT')
         
-        client.subscribe(interface['id'])
       except ImportError as error:
         print('MQTTImportError')
         print(error, False)
