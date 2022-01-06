@@ -1,1 +1,202 @@
-[{"current": 425, "default": "straight", "divergent": 275, "interface": "jmripi-PCA9685", "name": "TS X S1", "relay": {"divergent": false, "interface": "jmripi-GPIO", "pin": 31, "straight": true}, "relayCrossover": {"divergent": true, "interface": "jmripi-GPIO", "pin": 37, "straight": false}, "servo": 5, "straight": 425, "turnoutId": 101, "type": "servo"}, {"current": 400, "default": "straight", "divergent": 400, "interface": "jmripi-PCA9685", "name": "TS S2", "relay": {"divergent": false, "interface": "jmripi-GPIO", "pin": 33, "straight": true}, "servo": 9, "straight": 500, "turnoutId": 102, "type": "servo"}, {"current": 275, "default": "straight", "divergent": 275, "interface": "jmripi-PCA9685", "name": "TS S3", "relay": {"divergent": false, "interface": "jmripi-GPIO", "pin": 35, "straight": true}, "servo": 7, "straight": 400, "turnoutId": 103, "type": "servo"}, {"current": 325, "default": "straight", "divergent": 450, "interface": "jmripi-PCA9685", "name": "TS S4", "servo": 8, "straight": 325, "turnoutId": 104, "type": "servo"}, {"current": 300, "default": "straight", "divergent": 425, "interface": "jmripi-PCA9685", "name": "TS S5", "servo": 6, "straight": 300, "turnoutId": 105, "type": "servo"}, {"current": 470, "default": "straight", "divergent": 470, "interface": "jmripi-PCA9685", "name": "TS S6", "servo": 4, "straight": 270, "turnoutId": 106, "type": "servo"}, {"current": 425, "default": "straight", "divergent": 325, "interface": "jmripi-PCA9685", "name": "TS S7", "servo": 3, "straight": 425, "turnoutId": 107, "type": "servo"}, {"current": 500, "default": "straight", "divergent": 500, "interface": "jmripi-PCA9685", "name": "TS S8", "servo": 2, "straight": 325, "turnoutId": 108, "type": "servo"}, {"current": 350, "default": "straight", "divergent": 230, "interface": "jmripi-PCA9685", "name": "TS S9", "servo": 1, "straight": 350, "turnoutId": 109, "type": "servo"}, {"current": 100, "default": "straight", "divergent": 100, "interface": "jmripi-PCA9685", "name": "TS S10", "servo": 0, "straight": 260, "turnoutId": 110, "type": "servo"}, {"current": 80, "default": "straight", "divergent": 110, "interface": "town-serial", "name": "DT M1", "servo": 0, "straight": 80, "turnoutId": 201, "type": "servo"}]
+[
+    {
+        "current": 425,
+        "default": "straight",
+        "divergent": 275,
+        "interface": "jmripi-PCA9685",
+        "name": "TS X S1",
+        "relay": {
+            "divergent": false,
+            "interface": "jmripi-GPIO",
+            "pin": 31,
+            "straight": true
+        },
+        "relayCrossover": {
+            "divergent": true,
+            "interface": "jmripi-GPIO",
+            "pin": 37,
+            "straight": false
+        },
+        "servo": 5,
+        "straight": 425,
+        "turnoutId": 101,
+        "type": "servo"
+    },
+    {
+        "current": 500,
+        "default": "straight",
+        "divergent": 400,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S2",
+        "relay": {
+            "divergent": false,
+            "interface": "jmripi-GPIO",
+            "pin": 33,
+            "straight": true
+        },
+        "servo": 9,
+        "straight": 500,
+        "turnoutId": 102,
+        "type": "servo"
+    },
+    {
+        "current": 275,
+        "default": "straight",
+        "divergent": 275,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S3",
+        "relay": {
+            "divergent": false,
+            "interface": "jmripi-GPIO",
+            "pin": 35,
+            "straight": true
+        },
+        "servo": 7,
+        "straight": 400,
+        "turnoutId": 103,
+        "type": "servo"
+    },
+    {
+        "current": 325,
+        "default": "straight",
+        "divergent": 450,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S4",
+        "servo": 8,
+        "straight": 325,
+        "turnoutId": 104,
+        "type": "servo"
+    },
+    {
+        "current": 300,
+        "default": "straight",
+        "divergent": 425,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S5",
+        "servo": 6,
+        "straight": 300,
+        "turnoutId": 105,
+        "type": "servo"
+    },
+    {
+        "current": 270,
+        "default": "straight",
+        "divergent": 470,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S6",
+        "servo": 4,
+        "straight": 270,
+        "turnoutId": 106,
+        "type": "servo"
+    },
+    {
+        "current": 425,
+        "default": "straight",
+        "divergent": 325,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S7",
+        "servo": 3,
+        "straight": 425,
+        "turnoutId": 107,
+        "type": "servo"
+    },
+    {
+        "current": 500,
+        "default": "straight",
+        "divergent": 500,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S8",
+        "servo": 2,
+        "straight": 325,
+        "turnoutId": 108,
+        "type": "servo"
+    },
+    {
+        "current": 230,
+        "default": "straight",
+        "divergent": 230,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S9",
+        "servo": 1,
+        "straight": 350,
+        "turnoutId": 109,
+        "type": "servo"
+    },
+    {
+        "current": 100,
+        "default": "straight",
+        "divergent": 100,
+        "interface": "jmripi-PCA9685",
+        "name": "TS S10",
+        "servo": 0,
+        "straight": 260,
+        "turnoutId": 110,
+        "type": "servo"
+    },
+    {
+        "current": 70,
+        "default": "straight",
+        "divergent": 70,
+        "interface": "town-serial",
+        "name": "DT IN",
+        "servo": 4,
+        "straight": 83,
+        "turnoutId": 205,
+        "type": "servo"
+    },
+    {
+        "current": 120,
+        "default": "straight",
+        "divergent": 105,
+        "interface": "town-serial",
+        "name": "DT IN1",
+        "servo": 0,
+        "straight": 120,
+        "turnoutId": 201,
+        "type": "servo"
+    },
+    {
+        "current": 60,
+        "default": "straight",
+        "divergent": 70,
+        "interface": "town-serial",
+        "name": "DT IN2",
+        "servo": 1,
+        "straight": 60,
+        "turnoutId": 202,
+        "type": "servo"
+    },
+    {
+        "current": 80,
+        "default": "straight",
+        "divergent": 65,
+        "interface": "town-serial",
+        "name": "DT CS",
+        "servo": 2,
+        "straight": 80,
+        "turnoutId": 203,
+        "type": "servo"
+    },
+    {
+        "current": 60,
+        "default": "straight",
+        "divergent": 75,
+        "interface": "town-serial",
+        "name": "DT MTN",
+        "servo": 3,
+        "straight": 60,
+        "turnoutId": 204,
+        "type": "servo"
+    },
+    {
+        "current": 60,
+        "default": "straight",
+        "divergent": 75,
+        "interface": "mqtt",
+        "name": "DT MTN",
+        "servo": 3,
+        "straight": 60,
+        "turnoutId": 204,
+        "type": "servo"
+    }
+]

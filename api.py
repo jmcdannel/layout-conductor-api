@@ -10,6 +10,9 @@ from sensors import sensorsapi
 from locos import locosapi
 from config import config
 
+# initialize Configuration for API
+config.initializeApi()
+
 # intialize server
 app = Flask(__name__)
 cors = CORS(app)

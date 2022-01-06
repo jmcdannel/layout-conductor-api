@@ -21,6 +21,11 @@
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI"
+    },
+    {
+      "type": "pi",
+      "id": "traincontrol",
+      "desc": "RPi"
     }
   ],
   "interfaces": [
@@ -47,6 +52,17 @@
       "id": "jmripi-PCA9685",
       "type": "PCA9685",
       "device": "jmripi"
+    },
+    {
+      "id": "mqttMain",
+      "type": "mqtt",
+      "device": "jmripi",
+      "address": "tamarackpi"
+    },
+    {
+      "id": "traincontrol-ServoKit",
+      "type": "ServoKit",
+      "device": "traincontrol"
     }
   ],
   "apiHost": "localhost",

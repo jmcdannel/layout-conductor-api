@@ -20,6 +20,12 @@ def _sendActionCommand(cmd, interface):
   if interface is not None:
     interface.write(turnoutCommand.encode())
 
+def _sendMQTTCommand(cmd, interface, clientId):
+  turnoutCommand = '{ "action": "servo", "payload":' + cmd + '}'
+  print('mqttCmd: %s' % turnoutCommand)
+  if interface is not None:
+    interface.publish(clientId, turnoutCommand)
+
 def init():
   data = get_file()
   for turnout in data:
@@ -73,6 +79,8 @@ def put(turnout_id):
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface.settings['type'] == 'serial':
         _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
+      if turnoutInterface.settings['type'] == 'mqtt':
+        _sendMQTTCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
     if 'pin' in turnout:
       _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
