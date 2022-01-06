@@ -192,7 +192,7 @@
         "current": 60,
         "default": "straight",
         "divergent": 75,
-        "interface": "mqtt",
+        "interface": "mqttMain",
         "name": "TEST",
         "servo": 3,
         "straight": 60,
