@@ -193,10 +193,10 @@
         "default": "straight",
         "divergent": 75,
         "interface": "mqtt",
-        "name": "DT MTN",
+        "name": "TEST",
         "servo": 3,
         "straight": 60,
-        "turnoutId": 204,
+        "turnoutId": 301,
         "type": "servo"
     }
 ]

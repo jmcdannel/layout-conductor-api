@@ -43,7 +43,7 @@ class LayoutInterface(object):
     self.interface = interface
 
 def initializeMQTT(on_message):
-  appConfig = getCurrentConfig()
+  
   for interface in appConfig['interfaces']:
     device = getDeviceById(interface['device'])
     # Import paho.mqtt.client Library
@@ -62,14 +62,15 @@ def initializeMQTT(on_message):
         print('MQTT Exception')
         print(exception, False)
         
+appConfig = getCurrentConfig()
+interfaces = []
 
 def initializeApi():
 
-  appConfig = getCurrentConfig()
+  
 
   # print(appConfig['interfaces'])
 
-  interfaces = []
 
   for interface in appConfig['interfaces']:
     device = getDeviceById(interface['device'])
