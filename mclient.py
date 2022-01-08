@@ -18,6 +18,7 @@ device_id = "traincontrol"
 config.initializeInterfaces(device_id)
 
 def connect_mqtt() -> mqtt_client:
+    print('connecting')
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print("Connected to MQTT Broker!")
@@ -31,6 +32,7 @@ def connect_mqtt() -> mqtt_client:
 
 
 def subscribe(client: mqtt_client):
+    print('subscribing')
     def on_message(client, userdata, msg):
         parseMessage(msg)
 
@@ -59,6 +61,7 @@ def parseMessage(msg):
             player.interface('sounds/' + effect['value']['file'], False)
 
 def run():
+    print('running')
     client = connect_mqtt()
     subscribe(client)
     client.loop_forever()
