@@ -15,6 +15,13 @@ def _sendCommand(cmd, interface):
   if interface is not None:
     interface.write(cmd.encode())
 
+def _sendMQTTCommand(cmd, interface):
+  turnoutCommand = '{ "action": "effect", "payload":' + cmd + '}'
+  print('mqttCmd: %s' % turnoutCommand)
+  if interface is not None:
+    pubRes = interface.publish('lc_cmd', turnoutCommand)
+    print(pubRes)
+
 def init():
   data = get_file()
   # soundfx.init()
@@ -50,9 +57,12 @@ def put(effect_id):
   efx = efx[0]
 
   efx['state'] = state
+
+  print('effect put %d', effect_id)
   
   for action in efx['actions']:
     efxInterface = config.getInterfaceById(action['interface'])
+    print('effect action ' + action['interface'])
     if(efxInterface.settings['type'] == 'DCCOutput'):
       # DCC Output Command
       _sendCommand('<Z %d %s>' % (action['pin'], state), efxInterface.interface)
@@ -70,6 +80,9 @@ def put(effect_id):
       wavFile = os.path.dirname(__file__) + '/../sounds/' + action['file']
       print(wavFile)
       efxInterface.interface(wavFile)
+    elif efxInterface.settings['type'] == 'mqtt' and state == 1:
+        _sendMQTTCommand('{ "command": "effect", "type": "%s", "value": %s }' % (efx['type'], action), efxInterface.interface)
+    
 
   # save
   with open(path, 'w') as json_file:
@@ -87,3 +100,10 @@ def getActionState(efx, action, state):
   else:
     return efx['states'][str(state)][action]
     
+
+def runEffect(effect):
+  if effect['type'] == 'sound':
+    player = config.getInterfaceById(effect['value']['player'])
+    print(player.interface['id'])
+    print(effect['value']['file'])
+    player.interface(effect['value']['file'])

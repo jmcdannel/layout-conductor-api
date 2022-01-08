@@ -11,7 +11,8 @@ from locos import locosapi
 from config import config
 
 # initialize Configuration for API
-config.initializeApi()
+device_id = "jmripi"
+config.initializeInterfaces(device_id)
 
 # intialize server
 app = Flask(__name__)

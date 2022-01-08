@@ -1,12 +1,21 @@
 import os
 import paho.mqtt.client as mqtt_client
+import simplejson as json
+from turnouts import turnoutsapi
+# from signals import signalsapi
+from effects import effectsapi
+from sensors import sensorsapi
+from locos import locosapi
+from config import config
 
 broker = '192.168.86.243'
 port = 1883
-topic = "/turnouts"
+topic = "lc_cmd"
 # generate client ID with pub prefix randomly
 client_id = "mqttTamNorth"
+device_id = "traincontrol"
 
+config.initializeInterfaces(device_id)
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -23,17 +32,41 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print("Received %d\n", msg.payload.decode())
+        parseMessage(msg)
 
     client.subscribe(topic)
     client.on_message = on_message
 
+def parseMessage(msg):
+    print("Received %s", msg.payload.decode())
+    print("type %s", type(msg.payload))
+    msgStr = msg.payload.decode('utf8').replace("'", '"')
+    print('- ' * 20)
+
+    # Load the JSON to a Python list & dump it back out as formatted JSON
+    data = json.loads(msgStr)
+    effect = data['payload']
+    s = json.dumps(data, indent=4, sort_keys=True)
+    print(s)
+    print(effect['command'])
+    # payload = msg.payload
+    # print(payload)
+    if effect['command'] == 'effect':
+        if effect['type'] == 'sound':
+            player = config.getInterfaceById(effect['value']['player'])
+            print(player.settings['id'])
+            print(effect['value']['file'])
+            player.interface('sounds/' + effect['value']['file'], False)
 
 def run():
     client = connect_mqtt()
     subscribe(client)
     client.loop_forever()
 
+turnoutsapi.init()
+# signalsapi.init()
+# effectsapi.init()
+# sensorsapi.init()
 
 if __name__ == '__main__':
     run()

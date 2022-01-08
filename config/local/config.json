@@ -20,7 +20,8 @@
     {
       "type": "pi",
       "id": "jmripi",
-      "desc": "RPi w/JMRI"
+      "desc": "RPi w/JMRI",
+      "connectedDevices": ["town", "cmd"]
     },
     {
       "type": "pi",
@@ -60,8 +61,14 @@
       "address": "192.168.86.243"
     },
     {
-      "id": "traincontrol-ServoKit",
-      "type": "ServoKit",
+      "id": "mqttTraincontrol",
+      "type": "mqttClient",
+      "device": "traincontrol",
+      "address": "192.168.86.243"
+    },
+    {
+      "id": "traincontrol-playsound",
+      "type": "Python_playsound",
       "device": "traincontrol"
     }
   ],
