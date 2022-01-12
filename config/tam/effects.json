@@ -1,1 +1,102 @@
-[{"actions": [{"file": "departing-train.wav", "interface": "mqttMain", "player": "traincontrol-playsound"}], "effectId": 202, "name": "Departing", "state": 0, "type": "sound"}, {"actions": [{"file": "bike-horn-1.wav", "interface": "mqttMain", "player": "traincontrol-playsound"}], "effectId": 203, "name": "Bike Horn", "state": 0, "type": "sound"}, {"actions": [{"file": "diesel-train-arrives-and-departs.wav", "interface": "mqttMain", "player": "traincontrol-playsound"}], "effectId": 204, "name": "Traain Come & Go", "state": 0, "type": "sound"}, {"actions": [{"file": "noisy-street-car-moving.wav", "interface": "mqttMain", "player": "traincontrol-playsound"}], "effectId": 205, "name": "Street Car Moving", "state": 0, "type": "sound"}, {"actions": [{"file": "train-upon-us.wav", "interface": "mqttMain", "player": "traincontrol-playsound"}], "effectId": 206, "name": "Train Ariving", "state": 0, "type": "sound"}, {"actions": [{"interface": "cmd-serial", "pin": 49}], "effectId": 201, "name": "Engine Moving Light", "state": 1, "type": "light"}, {"actions": [{"interface": "cmd-serial", "pin": 43, "state": "green"}, {"interface": "cmd-serial", "pin": 45, "state": "yellow"}, {"interface": "cmd-serial", "pin": 47, "state": "red"}], "effectId": 101, "name": "Station East 1", "state": "green", "type": "signal"}]
+[
+  {
+    "actions": [
+      {
+        "file": "departing-train.wav",
+        "interface": "mqttMain",
+        "player": "traincontrol-pygame"
+      }
+    ],
+    "effectId": 202,
+    "name": "Departing",
+    "state": 0,
+    "type": "sound"
+  },
+  {
+    "actions": [
+      {
+        "file": "bike-horn-1.wav",
+        "interface": "mqttMain",
+        "player": "traincontrol-pygame"
+      }
+    ],
+    "effectId": 203,
+    "name": "Bike Horn",
+    "state": 0,
+    "type": "sound"
+  },
+  {
+    "actions": [
+      {
+        "file": "diesel-train-arrives-and-departs.wav",
+        "interface": "mqttMain",
+        "player": "traincontrol-pygame"
+      }
+    ],
+    "effectId": 204,
+    "name": "Traain Come & Go",
+    "state": 0,
+    "type": "sound"
+  },
+  {
+    "actions": [
+      {
+        "file": "noisy-street-car-moving.wav",
+        "interface": "mqttMain",
+        "player": "traincontrol-pygame"
+      }
+    ],
+    "effectId": 205,
+    "name": "Street Car Moving",
+    "state": 0,
+    "type": "sound"
+  },
+  {
+    "actions": [
+      {
+        "file": "train-upon-us.wav",
+        "interface": "mqttMain",
+        "player": "traincontrol-pygame"
+      }
+    ],
+    "effectId": 206,
+    "name": "Train Ariving",
+    "state": 0,
+    "type": "sound"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 49
+      }
+    ],
+    "effectId": 201,
+    "name": "Engine Moving Light",
+    "state": 1,
+    "type": "light"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 43,
+        "state": "green"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 45,
+        "state": "yellow"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 47,
+        "state": "red"
+      }
+    ],
+    "effectId": 101,
+    "name": "Station East 1",
+    "state": "green",
+    "type": "signal"
+  }
+]
