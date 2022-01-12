@@ -22,6 +22,9 @@ def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print("Connected to MQTT Broker!")
+            from playsound import playsound
+            playsound('sounds/bike-horn-1.wav')
+            
         else:
             print("Failed to connect, return code %d\n", rc)
 
