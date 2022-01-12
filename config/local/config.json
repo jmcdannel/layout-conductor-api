@@ -67,8 +67,8 @@
       "address": "192.168.86.243"
     },
     {
-      "id": "traincontrol-playsound",
-      "type": "Python_playsound",
+      "id": "traincontrol-pygame",
+      "type": "Python_pygame",
       "device": "traincontrol"
     }
   ],

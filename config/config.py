@@ -294,6 +294,21 @@ def initializeInterfaces(device_id):
         print('Python playsound Exception')
         print(exception, False)
 
+    # Import PyGame Python Library
+    if (interface['type'] == 'Python_pygame'):
+      try:
+        from pygame import mixer
+        mixer.init()
+        interfaces.append(LayoutInterface(interface['id'], interface, mixer))
+        print('Loaded Python PyGame')
+      except ImportError as error:
+        print('Python PyGame ImportError')
+        print(error, False)
+      except Exception as exception:
+        interfaces.append(LayoutInterface(interface['id'], interface, None))
+        print('Python PyGame Exception')
+        print(exception, False)
+
     # Import paho.mqtt.client Library
     if (interface['type'] == 'mqtt'):
       try:
