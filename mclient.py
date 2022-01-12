@@ -61,7 +61,7 @@ def parseMessage(msg):
             player = config.getInterfaceById(effect['value']['player'])
             print(player.settings['id'])
             print(effect['value']['file'])
-            sound = player.interface('sounds/' + effect['value']['file'])
+            sound = player.interface.Sound('sounds/' + effect['value']['file'])
             sound.play()
 
 def run():
