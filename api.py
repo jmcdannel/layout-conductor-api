@@ -92,7 +92,7 @@ def update_loco(loco_id):
 
 turnoutsapi.init()
 # signalsapi.init()
-# effectsapi.init()
+effectsapi.init()
 # sensorsapi.init()
 
 if __name__ == '__main__':

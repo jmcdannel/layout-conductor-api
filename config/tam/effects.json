@@ -68,11 +68,11 @@
     "actions": [
       {
         "interface": "cmd-serial",
-        "pin": 49
+        "pin": 15
       }
     ],
     "effectId": 201,
-    "name": "Engine Moving Light",
+    "name": "Tam Station Parking Lot",
     "state": 1,
     "type": "light"
   },
@@ -80,22 +80,138 @@
     "actions": [
       {
         "interface": "cmd-serial",
-        "pin": 43,
+        "pin": 16
+      }
+    ],
+    "effectId": 207,
+    "name": "Tam Station Heritage Lounge",
+    "state": 1,
+    "type": "light"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 17
+      }
+    ],
+    "effectId": 208,
+    "name": "Tam Station Heritage Platform",
+    "state": 1,
+    "type": "light"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 34,
         "state": "green"
       },
       {
         "interface": "cmd-serial",
-        "pin": 45,
+        "pin": 35,
         "state": "yellow"
       },
       {
         "interface": "cmd-serial",
-        "pin": 47,
+        "pin": 36,
         "state": "red"
       }
     ],
     "effectId": 101,
-    "name": "Station East 1",
+    "name": "Station Signal 1",
+    "state": "green",
+    "type": "signal"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 22,
+        "state": "green"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 23,
+        "state": "yellow"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 24,
+        "state": "red"
+      }
+    ],
+    "effectId": 101,
+    "name": "Station Signal 2",
+    "state": "green",
+    "type": "signal"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 25,
+        "state": "green"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 26,
+        "state": "yellow"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 27,
+        "state": "red"
+      }
+    ],
+    "effectId": 101,
+    "name": "Station Signal 3",
+    "state": "green",
+    "type": "signal"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 28,
+        "state": "green"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 29,
+        "state": "yellow"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 30,
+        "state": "red"
+      }
+    ],
+    "effectId": 101,
+    "name": "Station Signal 4",
+    "state": "green",
+    "type": "signal"
+  },
+  {
+    "actions": [
+      {
+        "interface": "cmd-serial",
+        "pin": 31,
+        "state": "green"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 32,
+        "state": "yellow"
+      },
+      {
+        "interface": "cmd-serial",
+        "pin": 33,
+        "state": "red"
+      }
+    ],
+    "effectId": 101,
+    "name": "Station Signal 5",
     "state": "green",
     "type": "signal"
   }
