@@ -33,11 +33,11 @@ def init():
   for turnout in data:
     if 'relay' in turnout:
       relayInterface = config.getInterfaceById(turnout['relay']['interface'])
-      if relayInterface is not None:
+      if relayInterface is not None and relayInterface.settings.type == 'GPIO':
         relayInterface.interface.setup(turnout['relay']['pin'], relayInterface.interface.OUT)
         if 'relayCrossover' in turnout:
           relayXInterface = config.getInterfaceById(turnout['relayCrossover']['interface'])
-          if relayXInterface is not None:
+          if relayXInterface is not None and relayXInterface.settings.type == 'GPIO':
             relayXInterface.interface.setup(turnout['relayCrossover']['pin'], relayXInterface.interface.OUT)
       
 
