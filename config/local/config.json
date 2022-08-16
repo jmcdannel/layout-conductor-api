@@ -14,19 +14,19 @@
     },
     {
       "type": "arduino",
+      "id": "station",
+      "desc": "Tamarack Station Arduino"
+    },
+    {
+      "type": "arduino",
       "id": "town",
-      "desc": "Town"
+      "desc": "Town Arduino"
     },
     {
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI",
-      "connectedDevices": ["town", "cmd"]
-    },
-    {
-      "type": "pi",
-      "id": "traincontrol",
-      "desc": "RPi"
+      "connectedDevices": ["town", "cmd", "station"]
     }
   ],
   "interfaces": [
@@ -34,7 +34,14 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/ttyACM0",
+      "serial": "/dev/ttyACM2",
+      "baud": 115200
+    },
+    {
+      "id": "station-serial",
+      "type": "serial",
+      "device": "station",
+      "serial": "/dev/ttyACM1",
       "baud": 115200
     },
     {
@@ -50,26 +57,10 @@
       "device": "jmripi"
     },
     {
-      "id": "jmripi-PCA9685",
-      "type": "PCA9685",
-      "device": "jmripi"
-    },
-    {
       "id": "mqttMain",
       "type": "mqtt",
       "device": "jmripi",
       "address": "192.168.86.243"
-    },
-    {
-      "id": "mqttTraincontrol",
-      "type": "mqttClient",
-      "device": "traincontrol",
-      "address": "192.168.86.243"
-    },
-    {
-      "id": "traincontrol-pygame",
-      "type": "Python_pygame",
-      "device": "traincontrol"
     }
   ],
   "apiHost": "localhost",
