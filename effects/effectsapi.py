@@ -4,11 +4,26 @@ from config import config
 # from . import soundfx
 
 path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/effects.json'
+actionQueue = ''
 
 def get_file():
   with open(path) as json_file:
     data = json.load(json_file)
   return data
+
+def _queueCommand(cmd):
+  global actionQueue
+  if actionQueue != '':
+    actionQueue = actionQueue + ','
+  actionQueue = actionQueue + '{ "action": "pin", "payload":' + cmd + '}'
+
+def execQueue(interface):
+  global actionQueue
+  print('cmd: %s' % actionQueue)
+  if interface is not None and actionQueue != '':
+    actionQueue = '[' + actionQueue + ']'
+    interface.write(actionQueue.encode())
+  actionQueue = ''
 
 def _sendCommand(cmd, interface):
   print('cmd: %s' % cmd)
@@ -70,9 +85,10 @@ def put(effect_id):
       # Arduino Serail JSON Output
       if (efx['type'] == 'signal'):
         signalState = 1 if state == action['actionId'] else 0
-        _sendCommand('[{ "pin": %d, "value": %d, "type": "signal" }]' % (action['pin'], signalState), efxInterface.interface)      
+        # _queueCommand('')
+        # _sendCommand('[{ "pin": %d, "value": %d, "type": "signal" }]' % (action['pin'], signalState), efxInterface.interface)      
       else:
-        _sendCommand('[{ "pin": %d, "value": %d, "type": "toggle" } }]' % (action['pin'], state), efxInterface.interface)
+        _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], state))
     elif(efxInterface.settings['type'] == 'GPIO'):
       # RPi GPIO Output
       efxInterface.interface.output(action['pin'], action['state'])
@@ -83,6 +99,7 @@ def put(effect_id):
     elif efxInterface.settings['type'] == 'mqtt' and state == 1:
         _sendMQTTCommand('{ "command": "effect", "type": "%s", "value": %s }' % (efx['type'], action), efxInterface.interface)
     
+    execQueue(efxInterface.interface)
 
   # save
   with open(path, 'w') as json_file:

@@ -3,11 +3,26 @@ from flask import json, jsonify, request, abort
 from config import config
 
 path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/turnouts.json'
+actionQueue = ''
 
 def get_file():
   with open(path) as json_file:
     data = json.load(json_file)
   return data
+
+def _queueCommand(cmd, action):
+  global actionQueue
+  if actionQueue != '':
+    actionQueue = actionQueue + ','
+  actionQueue = actionQueue + '{ "action": "' + action + '", "payload":' + cmd + '}'
+
+def execQueue(interface):
+  global actionQueue
+  print('cmd: %s' % actionQueue)
+  if interface is not None and actionQueue != '':
+    actionQueue = '[' + actionQueue + ']'
+    interface.write(actionQueue.encode())
+  actionQueue = ''
 
 def _sendCommand(cmd, interface):
   print('cmd: %s' % cmd)
@@ -84,7 +99,8 @@ def put(turnout_id):
         print(turnoutInterface.interface.set_pwm)
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'serial':
-        _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
+        # _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
+        _queueCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), 'servo')
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'mqtt':
         _sendMQTTCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
     if 'pin' in turnout:
@@ -95,8 +111,10 @@ def put(turnout_id):
   # Toggle crossover relay if present
   if 'relayCrossover' in turnout:
     relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
-  # save all keys
   
+  execQueue(turnoutInterface.interface)
+
+  # save all keys
   with open(path, 'w') as turnout_file:
     json.dump(data, turnout_file)
 
@@ -107,7 +125,7 @@ def relay(relay, isStraight):
   if relayInterface is not None:
     if isStraight is True:
       print('change relay %d to straight (%s)' % (relay['pin'], relay['straight']))
-      relayInterface.interface.output(relay['pin'], relay['straight'])
+      _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['straight']), 'pin')
     else:
       print('change relay %d to divergent (%s)' % (relay['pin'], relay['divergent']))
-      relayInterface.interface.output(relay['pin'], relay['divergent'])
+      _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['divergent']), 'pin')
