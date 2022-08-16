@@ -80,6 +80,8 @@ def put(turnout_id):
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'PCA9685':
         print('setting PCA9685')
         print(turnout['servo'])
+        print(turnoutInterface.interface)
+        print(turnoutInterface.interface.set_pwm)
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'serial':
         _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
