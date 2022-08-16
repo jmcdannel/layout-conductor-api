@@ -18,15 +18,10 @@
       "desc": "Tamarack Station Arduino"
     },
     {
-      "type": "arduino",
-      "id": "town",
-      "desc": "Town Arduino"
-    },
-    {
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI",
-      "connectedDevices": ["town", "cmd", "station"]
+      "connectedDevices": ["cmd", "station"]
     }
   ],
   "interfaces": [
@@ -41,14 +36,7 @@
       "id": "station-serial",
       "type": "serial",
       "device": "station",
-      "serial": "/dev/ttyACM1",
-      "baud": 115200
-    },
-    {
-      "id": "town-serial",
-      "type": "serial",
-      "device": "town",
-      "serial": "/dev/ttyUSB0",
+      "serial": "/dev/ttyACM3",
       "baud": 115200
     },
     {
