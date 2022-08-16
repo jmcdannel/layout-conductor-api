@@ -51,6 +51,8 @@ class LayoutInterface(object):
     self.id = id
     self.settings = settings
     self.interface = interface
+    print('LayoutInterface')
+    print(interface)
 
 def on_log(client, userdata, level, buf):
   print("log: ", buf)
@@ -258,6 +260,7 @@ def initializeInterfaces(device_id):
         pcaInterface.set_pwm_freq(60)
         interfaces.append(LayoutInterface(interface['id'], interface, pcaInterface))
         print('Adafruit_PCA9685 PWM board initialized')
+        print(pcaInterface)
       except ImportError as error:
         print('Adafruit_PCA9685 ImportError')
         print(error, False)
