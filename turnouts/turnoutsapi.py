@@ -75,13 +75,15 @@ def put(turnout_id):
  
   if turnout['type'] == 'servo':
     if 'servo' in turnout:
-      if turnoutInterface.settings['type'] == 'ServoKit':
+      if turnoutInterface is not None and turnoutInterface.settings['type'] == 'ServoKit':
         turnoutInterface.interface.servo[turnout['servo']].angle = turnout['current']
-      if turnoutInterface.settings['type'] == 'PCA9685':
+      if turnoutInterface is not None and turnoutInterface.settings['type'] == 'PCA9685':
+        print('setting PCA9685')
+        print(turnout['servo'])
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
-      if turnoutInterface.settings['type'] == 'serial':
+      if turnoutInterface is not None and turnoutInterface.settings['type'] == 'serial':
         _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
-      if turnoutInterface.settings['type'] == 'mqtt':
+      if turnoutInterface is not None and turnoutInterface.settings['type'] == 'mqtt':
         _sendMQTTCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
     if 'pin' in turnout:
       _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
