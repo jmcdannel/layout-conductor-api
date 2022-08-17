@@ -100,7 +100,7 @@ def put(effect_id):
     elif efxInterface.settings['type'] == 'mqtt' and state == 1:
         _sendMQTTCommand('{ "command": "effect", "type": "%s", "value": %s }' % (efx['type'], action), efxInterface.interface)
     
-    execQueue(efxInterface.interface)
+  execQueue(efxInterface.interface)
 
   # save
   with open(path, 'w') as json_file:
