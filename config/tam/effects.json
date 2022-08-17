@@ -67,8 +67,8 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 15
+        "interface": "station-serial",
+        "pin": 41
       }
     ],
     "effectId": 201,
@@ -79,8 +79,8 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 16
+        "interface": "station-serial",
+        "pin": 39
       }
     ],
     "effectId": 207,
@@ -91,8 +91,8 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 17
+        "interface": "station-serial",
+        "pin": 43
       }
     ],
     "effectId": 208,
@@ -103,18 +103,18 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 34,
+        "interface": "station-serial",
+        "pin": 36,
         "state": "green"
       },
       {
-        "interface": "cmd-serial",
+        "interface": "station-serial",
         "pin": 35,
         "state": "yellow"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 36,
+        "interface": "station-serial",
+        "pin": 34,
         "state": "red"
       }
     ],
@@ -126,18 +126,18 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 22,
+        "interface": "station-serial",
+        "pin": 24,
         "state": "green"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 23,
+        "interface": "station-serial",
+        "pin": 22,
         "state": "yellow"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 24,
+        "interface": "station-serial",
+        "pin": 23,
         "state": "red"
       }
     ],
@@ -149,18 +149,18 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 25,
+        "interface": "station-serial",
+        "pin": 27,
         "state": "green"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 26,
+        "interface": "station-serial",
+        "pin": 25,
         "state": "yellow"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 27,
+        "interface": "station-serial",
+        "pin": 26,
         "state": "red"
       }
     ],
@@ -172,18 +172,18 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 28,
+        "interface": "station-serial",
+        "pin": 30,
         "state": "green"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 29,
+        "interface": "station-serial",
+        "pin": 28,
         "state": "yellow"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 30,
+        "interface": "station-serial",
+        "pin": 29,
         "state": "red"
       }
     ],
@@ -195,18 +195,18 @@
   {
     "actions": [
       {
-        "interface": "cmd-serial",
-        "pin": 31,
+        "interface": "station-serial",
+        "pin": 33,
         "state": "green"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 32,
+        "interface": "station-serial",
+        "pin": 31,
         "state": "yellow"
       },
       {
-        "interface": "cmd-serial",
-        "pin": 33,
+        "interface": "station-serial",
+        "pin": 32,
         "state": "red"
       }
     ],

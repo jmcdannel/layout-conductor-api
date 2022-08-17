@@ -29,14 +29,14 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/ttyACM2",
+      "serial": "/dev/ttyACM0",
       "baud": 115200
     },
     {
       "id": "station-serial",
       "type": "serial",
       "device": "station",
-      "serial": "/dev/ttyACM3",
+      "serial": "/dev/ttyACM1",
       "baud": 115200
     },
     {
