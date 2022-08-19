@@ -100,9 +100,9 @@ def put(turnout_id):
         turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'serial':
         # _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
-        _queueCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), 'servo')
+        _queueCommand('{ "servo": %d, "pwm": %d, "value": %d }' % (turnout['servo'], turnout['pwm'], turnout['current']), 'servo')
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'mqtt':
-        _sendMQTTCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
+        _sendMQTTCommand('{ "servo": %d, "pwm": %d, "value": %d }' % (turnout['servo'], turnout['pwm'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
     if 'pin' in turnout:
       _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
