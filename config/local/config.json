@@ -36,7 +36,7 @@
       "id": "station-serial",
       "type": "serial",
       "device": "station",
-      "serial": "/dev/ttyACM1",
+      "serial": "/dev/ttyACM2",
       "baud": 115200
     },
     {
@@ -49,7 +49,19 @@
       "type": "mqtt",
       "device": "jmripi",
       "address": "192.168.86.243"
+    },
+    {
+      "id": "mqttTraincontrol",
+      "type": "mqttClient",
+      "device": "traincontrol",
+      "address": "192.168.86.243"
+    },
+    {
+      "id": "traincontrol-pygame",
+      "type": "Python_pygame",
+      "device": "traincontrol"
     }
+
   ],
   "apiHost": "localhost",
   "jmri": "http://localhost:12080/json/"
