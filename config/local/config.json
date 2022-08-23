@@ -18,11 +18,23 @@
       "desc": "Tamarack Station Arduino"
     },
     {
+      "type": "arduino",
+      "id": "station-north",
+      "desc": "Tamarack Station North Arduino"
+    },
+    {
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI",
-      "connectedDevices": ["cmd", "station"]
+      "connectedDevices": ["cmd", "station", "station-north"]
+    },
+    {
+      "type": "pi",
+      "id": "traincontrol",
+      "desc": "RPi",
+      "connectedDevices": []
     }
+
   ],
   "interfaces": [
     {
@@ -36,6 +48,13 @@
       "id": "station-serial",
       "type": "serial",
       "device": "station",
+      "serial": "/dev/ttyACM1",
+      "baud": 115200
+    },
+    {
+      "id": "station-north-serial",
+      "type": "serial",
+      "device": "station-north",
       "serial": "/dev/ttyACM2",
       "baud": 115200
     },
