@@ -207,9 +207,9 @@ def initializeInterfaces(device_id):
     device = getDeviceById(interface['device'])
     
     if (device_id == device['id'] or ('connectedDevices' in local_device and device['id'] in local_device['connectedDevices'])):
-      cprint('INITIALIZING interface ' + interface['id'], 'cyan')
+      cprint('INITIALIZING interface [%s] ' % interface['id'], 'cyan')
     else:
-      cprint('SKIPPING interface ' + interface['id'], 'orange')
+      cprint('SKIPPING interface [%s]  ' % interface['id'], 'red')
       continue
 
     # Import Arduino Sertal
