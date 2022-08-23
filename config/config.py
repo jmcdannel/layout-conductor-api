@@ -1,5 +1,6 @@
 import os
 from flask import json, jsonify, request, abort
+from termcolor import colored, cprint
 
 
 def getConfig():
@@ -51,8 +52,6 @@ class LayoutInterface(object):
     self.id = id
     self.settings = settings
     self.interface = interface
-    print('LayoutInterface')
-    print(interface)
 
 def on_log(client, userdata, level, buf):
   print("log: ", buf)
@@ -100,12 +99,6 @@ def initializeMQTT():
         
 
 def initializeApi():
-
-  
-
-  # print(appConfig['interfaces'])
-
-
   for interface in appConfig['interfaces']:
     device = getDeviceById(interface['device'])
     
@@ -114,14 +107,14 @@ def initializeApi():
       try:
         import serial
         interfaces.append(LayoutInterface(interface['id'], interface, serial.Serial(interface['serial'], interface['baud'])))
-        print('Serial Connection Established...')
+        cprint('Serial Connection Established [%s]...' % interface['id'], 'green')
       except ImportError as error:
-        print('serial ImportError')
-        print(error, False)
+        cprint('serial ImportError [%s]' % interface['id'], 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('serial Exception')
-        print(exception, False)
+        cprint('serial Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi GPIO
     if (interface['type'] == 'GPIO'):
@@ -129,14 +122,14 @@ def initializeApi():
         import RPi.GPIO as GPIO
         GPIO.setmode(GPIO.BOARD)
         interfaces.append(LayoutInterface(interface['id'], interface, GPIO))
-        print('GPIO Mode set to BOARD')
+        cprint('GPIO Mode set to BOARD', 'green')
       except ImportError as error:
-        print('RPi.GPIO ImportError')
-        print(error, False)
+        cprint('RPi.GPIO ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('RPi.GPIO Exception')
-        print(exception, False)
+        cprint('RPi.GPIO Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi PWM Controller
     if (device['type'] == 'pi' and interface['type'] == 'PCA9685'):
@@ -145,60 +138,60 @@ def initializeApi():
         pcaInterface = Adafruit_PCA9685.PCA9685()
         pcaInterface.set_pwm_freq(60)
         interfaces.append(LayoutInterface(interface['id'], interface, pcaInterface))
-        print('Adafruit_PCA9685 PWM board initialized')
+        cprint('Adafruit_PCA9685 PWM board initialized', 'green')
       except ImportError as error:
-        print('Adafruit_PCA9685 ImportError')
-        print(error, False)
+        cprint('Adafruit_PCA9685 ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('Adafruit_PCA9685 Exception')
-        print(exception, False)
+        cprint('Adafruit_PCA9685 Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi PWM Controller
     if (device['type'] == 'pi' and interface['type'] == 'ServoKit'):
       try:
         from adafruit_servokit import ServoKit
         interfaces.append(LayoutInterface(interface['id'], interface, ServoKit(channels=16)))
-        print('Loaded adafruit_servokit')
+        cprint('Loaded adafruit_servokit', 'green')
       except ImportError as error:
-        print('adafruit_servokit ImportError')
-        print(error, False)
+        cprint('adafruit_servokit ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('adafruit_servokit Exception')
-        print(exception, False)
+        cprint('adafruit_servokit Exception', 'red')
+        cprint(exception, 'red')
 
     # Import Playsound Python Library
     if (interface['type'] == 'Python' and interface['id'] == 'playsound'):
       try:
         from playsound import playsound
         interfaces.append(LayoutInterface(interface['id'], interface, playsound))
-        print('Loaded Python playsound')
+        cprint('Loaded Python playsound', 'green')
       except ImportError as error:
-        print('Python playsound ImportError')
-        print(error, False)
+        cprint('Python playsound ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('Python playsound Exception')
-        print(exception, False)
+        cprint('Python playsound Exception', 'red')
+        cprint(exception, 'red')
 
     # Import paho.mqtt.client Library
     if (interface['type'] == 'mqtt'):
       try:
         import paho.mqtt.client as mqtt #import the client
-        print("Creating new MQTT instance")
+        cprint("Creating new MQTT instance", 'cyan')
         client = mqtt.Client(interface['id']) #create new instance
-        print("Connecting to MQTT broker")
+        cprint("Connecting to MQTT broker", 'green')
         client.connect(interface['address']) #connect to broker
         interfaces.append(LayoutInterface(interface['id'], interface, client))
         print('Loaded MQTT')
       except ImportError as error:
-        print('MQTTImportError')
-        print(error, False)
+        cprint('MQTTImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('MQTT Exception')
-        print(exception, False)
+        cprint('MQTT Exception', 'red')
+        cprint(exception, 'red')
 
 def initializeInterfaces(device_id):
 
@@ -214,28 +207,24 @@ def initializeInterfaces(device_id):
     device = getDeviceById(interface['device'])
     
     if (device_id == device['id'] or ('connectedDevices' in local_device and device['id'] in local_device['connectedDevices'])):
-      print('found interface' + interface['id'])
+      cprint('INITIALIZING interface ' + interface['id'], 'cyan')
     else:
-      print('skip interface ' + interface['id'])
+      cprint('SKIPPING interface ' + interface['id'], 'orange')
       continue
-
-    print('init interace ' + interface['id'])
-    
-
 
     # Import Arduino Sertal
     if (interface['type'] == 'serial'):
       try:
         import serial
         interfaces.append(LayoutInterface(interface['id'], interface, serial.Serial(interface['serial'], interface['baud'])))
-        print('Serial Connection Established...')
+        cprint('Serial Connection Established...', 'green')
       except ImportError as error:
-        print('serial ImportError')
-        print(error, False)
+        cprint('serial ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('serial Exception')
-        print(exception, False)
+        cprint('serial Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi GPIO
     if (interface['type'] == 'GPIO'):
@@ -243,14 +232,14 @@ def initializeInterfaces(device_id):
         import RPi.GPIO as GPIO
         GPIO.setmode(GPIO.BOARD)
         interfaces.append(LayoutInterface(interface['id'], interface, GPIO))
-        print('GPIO Mode set to BOARD')
+        cprint('GPIO Mode set to BOARD', 'green')
       except ImportError as error:
-        print('RPi.GPIO ImportError')
-        print(error, False)
+        cprint('RPi.GPIO ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('RPi.GPIO Exception')
-        print(exception, False)
+        cprint('RPi.GPIO Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi PWM Controller
     if (device['type'] == 'pi' and interface['type'] == 'PCA9685'):
@@ -259,43 +248,42 @@ def initializeInterfaces(device_id):
         pcaInterface = Adafruit_PCA9685.PCA9685()
         pcaInterface.set_pwm_freq(60)
         interfaces.append(LayoutInterface(interface['id'], interface, pcaInterface))
-        print('Adafruit_PCA9685 PWM board initialized')
-        print(pcaInterface)
+        cprint('Adafruit_PCA9685 PWM board initialized', 'green')
       except ImportError as error:
-        print('Adafruit_PCA9685 ImportError')
-        print(error, False)
+        cprint('Adafruit_PCA9685 ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('Adafruit_PCA9685 Exception')
-        print(exception, False)
+        cprint('Adafruit_PCA9685 Exception', 'red')
+        cprint(exception, 'red')
 
     # Import RPi PWM Controller
     if (device['type'] == 'pi' and interface['type'] == 'ServoKit'):
       try:
         from adafruit_servokit import ServoKit
         interfaces.append(LayoutInterface(interface['id'], interface, ServoKit(channels=16)))
-        print('Loaded adafruit_servokit')
+        cprint('Loaded adafruit_servokit', 'green')
       except ImportError as error:
-        print('adafruit_servokit ImportError')
-        print(error, False)
+        cprint('adafruit_servokit ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('adafruit_servokit Exception')
-        print(exception, False)
+        cprint('adafruit_servokit Exception', 'red')
+        cprint(exception, 'red')
 
     # Import Playsound Python Library
     if (interface['type'] == 'Python_playsound'):
       try:
         from playsound import playsound
         interfaces.append(LayoutInterface(interface['id'], interface, playsound))
-        print('Loaded Python playsound')
+        cprint('Loaded Python playsound', 'green')
       except ImportError as error:
-        print('Python playsound ImportError')
-        print(error, False)
+        cprint('Python playsound ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('Python playsound Exception')
-        print(exception, False)
+        cprint('Python playsound Exception', 'red')
+        cprint(exception, 'red')
 
     # Import PyGame Python Library
     if (interface['type'] == 'Python_pygame'):
@@ -303,37 +291,37 @@ def initializeInterfaces(device_id):
         from pygame import mixer
         mixer.init()
         interfaces.append(LayoutInterface(interface['id'], interface, mixer))
-        print('Loaded Python PyGame')
+        cprint('Loaded Python PyGame', 'green')
       except ImportError as error:
-        print('Python PyGame ImportError')
-        print(error, False)
+        cprint('Python PyGame ImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('Python PyGame Exception')
-        print(exception, False)
+        cprint('Python PyGame Exception', 'red')
+        cprint(exception, 'red')
 
     # Import paho.mqtt.client Library
     if (interface['type'] == 'mqtt'):
       try:
         import paho.mqtt.client as mqtt #import the client
-        print("Creating new MQTT instance")
+        cprint("Creating new MQTT instance", 'cyan')
         client = mqtt.Client(interface['id']) #create new instance
-        print("Connecting to MQTT broker")
+        cprint("Connecting to MQTT broker", 'cyan')
         client.connect(interface['address']) #connect to broker
         interfaces.append(LayoutInterface(interface['id'], interface, client))
-        print('Loaded MQTT')
+        cprint('Loaded MQTT', 'green')
       except ImportError as error:
-        print('MQTTImportError')
-        print(error, False)
+        cprint('MQTTImportError', 'red')
+        cprint(error, 'red')
       except Exception as exception:
         interfaces.append(LayoutInterface(interface['id'], interface, None))
-        print('MQTT Exception')
-        print(exception, False)
+        cprint('MQTT Exception', 'red')
+        cprint(exception, 'red')
 
   
         
 
-  print('Interfaces initialized')
+  cprint('Interfaces initialized', 'cyan')
 
 
 # def getConfig():
