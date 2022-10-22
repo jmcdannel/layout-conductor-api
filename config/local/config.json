@@ -1,6 +1,6 @@
 {
-  "layoutId": "tam",
-  "name": "Tamarack Junction",
+  "layoutId": "betatrack",
+  "name": "Beta Track Junction",
   "modules": [
     "turnouts",
     "locos",
@@ -14,73 +14,31 @@
     },
     {
       "type": "arduino",
-      "id": "station",
-      "desc": "Tamarack Station Arduino"
-    },
-    {
-      "type": "arduino",
-      "id": "station-north",
-      "desc": "Tamarack Station North Arduino"
+      "id": "betatrack-serial",
+      "desc": "Arduino Direct Serial Control"
     },
     {
       "type": "pi",
       "id": "jmripi",
       "desc": "RPi w/JMRI",
-      "connectedDevices": ["cmd", "station", "station-north"]
-    },
-    {
-      "type": "pi",
-      "id": "traincontrol",
-      "desc": "RPi",
-      "connectedDevices": []
+      "connectedDevices": ["cmd", "betatrack-serial"]
     }
-
   ],
   "interfaces": [
     {
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/ttyACM0",
+      "serial": "/dev/cu.usbmodem143301",
       "baud": 115200
     },
     {
-      "id": "station-serial",
+      "id": "betatrack-layout",
       "type": "serial",
-      "device": "station",
-      "serial": "/dev/ttyACM1",
+      "device": "betatrack-serial",
+      "serial": "/dev/cu.usbserial-143430",
       "baud": 115200
-    },
-    {
-      "id": "station-north-serial",
-      "type": "serial",
-      "device": "station-north",
-      "serial": "/dev/ttyACM2",
-      "baud": 115200
-    },
-    {
-      "id": "jmripi-GPIO",
-      "type": "GPIO",
-      "device": "jmripi"
-    },
-    {
-      "id": "mqttMain",
-      "type": "mqtt",
-      "device": "jmripi",
-      "address": "192.168.86.243"
-    },
-    {
-      "id": "mqttTraincontrol",
-      "type": "mqttClient",
-      "device": "traincontrol",
-      "address": "192.168.86.243"
-    },
-    {
-      "id": "traincontrol-pygame",
-      "type": "Python_pygame",
-      "device": "traincontrol"
     }
-
   ],
   "apiHost": "localhost",
   "jmri": "http://localhost:12080/json/"

@@ -1,6 +1,7 @@
 import os
 from flask import json, jsonify, request, abort
 from config import config
+from effects import effectsapi
 
 path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/turnouts.json'
 actionQueue = ''
@@ -15,6 +16,14 @@ def _queueCommand(cmd, action):
   if actionQueue != '':
     actionQueue = actionQueue + ','
   actionQueue = actionQueue + '{ "action": "' + action + '", "payload":' + cmd + '}'
+
+def _queueEffect(effectId, state):
+  global actionQueue
+  if actionQueue != '':
+    actionQueue = actionQueue + ','
+  effectCommands = effectsapi.queueCommands(effectId, state)
+  print(effectCommands)
+  actionQueue = actionQueue + effectCommands
 
 def execQueue(interface):
   global actionQueue
@@ -82,13 +91,14 @@ def put(turnout_id):
   for key in request.json:
     turnout[key] = request.json.get(key, turnout[key])
 
-  if turnout['type'] == 'kato' and turnoutInterface.settings['type'] == 'serial':
-    if (turnout['current'] == 1):
-      _sendCommand('[{ "pin": %d, "value": %d }, { "pin": %d, "value": %d }]' % (turnout['pinB'], 0, turnout['pinA'], 1), turnoutInterface.interface)
-    elif (turnout['current'] == 0):
-      _sendCommand('[{ "pin": %d, "value": %d }, { "pin": %d, "value": %d }]' % (turnout['pinB'], 1, turnout['pinA'], 0), turnoutInterface.interface)
- 
-  if turnout['type'] == 'servo':
+  if 'effects' in turnout:
+    for effectId in turnout['effects']:
+      _queueEffect(effectId, turnout['state'])
+
+  if turnout['config']['type'] == 'kato' and turnoutInterface.settings['type'] == 'serial':
+    _queueCommand('{ "turnoutIdx": %d, "state": %d }' % (turnout['config']["payload"]["turnoutIdx"], turnout['state']), 'turnout')
+    
+  if turnout['config']['type'] == 'servo':
     if 'servo' in turnout:
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'ServoKit':
         turnoutInterface.interface.servo[turnout['servo']].angle = turnout['current']
@@ -106,11 +116,11 @@ def put(turnout_id):
     if 'pin' in turnout:
       _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
 
-  if 'relay' in turnout:
-    relay(turnout['relay'], turnout['current'] == turnout['straight'])
-  # Toggle crossover relay if present
-  if 'relayCrossover' in turnout:
-    relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
+  # if 'relay' in turnout:
+  #   relay(turnout['relay'], turnout['current'] == turnout['straight'])
+  # # Toggle crossover relay if present
+  # if 'relayCrossover' in turnout:
+  #   relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
   
   execQueue(turnoutInterface.interface)
 
@@ -120,12 +130,15 @@ def put(turnout_id):
 
   return jsonify(turnout)
 
-def relay(relay, isStraight):
-  relayInterface = config.getInterfaceById(relay['interface'])
-  if relayInterface is not None:
-    if isStraight is True:
-      print('change relay %d to straight (%s)' % (relay['pin'], relay['straight']))
-      _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['straight']), 'pin')
-    else:
-      print('change relay %d to divergent (%s)' % (relay['pin'], relay['divergent']))
-      _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['divergent']), 'pin')
+
+  # _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['straight']), 'pin')
+
+# def relay(relay, isStraight):
+#   relayInterface = config.getInterfaceById(relay['interface'])
+#   if relayInterface is not None:
+#     if isStraight is True:
+#       print('change relay %d to straight (%s)' % (relay['pin'], relay['straight']))
+#       _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['straight']), 'pin')
+#     else:
+#       print('change relay %d to divergent (%s)' % (relay['pin'], relay['divergent']))
+#       _queueCommand('{ "pin": %d, "value": %d }' % (relay['pin'], relay['divergent']), 'pin')

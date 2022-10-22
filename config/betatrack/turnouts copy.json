@@ -1,0 +1,16 @@
+[
+  {
+    "config": {
+        "turnoutIdx": 0,
+        "interface": "betatrack-layout",
+        "type": "kato"
+    },
+    "effects": [
+      101,
+      201
+    ],
+    "name": "BT1",
+    "state": true,
+    "turnoutId": 101
+  }
+]

@@ -4,7 +4,7 @@ from config import config
 # from . import soundfx
 
 path = os.path.dirname(__file__) + '/../config/' + config.appConfig['layoutId'] + '/effects.json'
-actionQueue = ''
+actionQueueEffects = ''
 
 def get_file():
   with open(path) as json_file:
@@ -12,18 +12,18 @@ def get_file():
   return data
 
 def _queueCommand(cmd):
-  global actionQueue
-  if actionQueue != '':
-    actionQueue = actionQueue + ','
-  actionQueue = actionQueue + '{ "action": "pin", "payload":' + cmd + '}'
+  global actionQueueEffects
+  if actionQueueEffects != '':
+    actionQueueEffects = actionQueueEffects + ','
+  actionQueueEffects = actionQueueEffects + '{ "action": "pin", "payload":' + cmd + '}'
 
 def execQueue(interface):
-  global actionQueue
-  print('cmd: %s' % actionQueue)
-  if interface is not None and actionQueue != '':
-    actionQueue = '[' + actionQueue + ']'
-    interface.write(actionQueue.encode())
-  actionQueue = ''
+  global actionQueueEffects
+  print('cmd: %s' % actionQueueEffects)
+  if interface is not None and actionQueueEffects != '':
+    actionQueueEffects = '[' + actionQueueEffects + ']'
+    interface.write(actionQueueEffects.encode())
+  actionQueueEffects = ''
 
 def _sendCommand(cmd, interface):
   print('cmd: %s' % cmd)
@@ -61,7 +61,6 @@ def get(effect_id=None):
 def put(effect_id):
   data = get_file()
   efx = [efx for efx in data if efx['effectId'] == effect_id]
-  state = request.json['state']
 
   # validate
   if len(efx) == 0:
@@ -71,9 +70,19 @@ def put(effect_id):
 
   efx = efx[0]
 
+  run(efx, request.json['state'])
+
+  # save
+  with open(path, 'w') as json_file:
+    json.dump(data, json_file)
+
+  return jsonify(efx)
+
+def run(efx, state):
+
   efx['state'] = state
 
-  print('effect put %d', effect_id)
+  print('effect put %d', efx['effectId'])
   
   for action in efx['actions']:
     efxInterface = config.getInterfaceById(action['interface'])
@@ -85,9 +94,9 @@ def put(effect_id):
       # Arduino Serail JSON Output
       if (efx['type'] == 'signal'):
         if state == action['state']:
-          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 0))
+          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 1))
         else:
-          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 1))     
+          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 0))     
       else:
         _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], state))
     elif(efxInterface.settings['type'] == 'GPIO'):
@@ -99,14 +108,33 @@ def put(effect_id):
       efxInterface.interface(wavFile)
     elif efxInterface.settings['type'] == 'mqtt' and state == 1:
         _sendMQTTCommand('{ "command": "effect", "type": "%s", "value": %s }' % (efx['type'], action), efxInterface.interface)
-    
+  
+  # queueCommands(efx, state)
   execQueue(efxInterface.interface)
 
-  # save
-  with open(path, 'w') as json_file:
-    json.dump(data, json_file)
+def queueCommands(effectId, state):
+  global actionQueueEffects
+  actionQueueEffects = ''
+  data = get_file()
+  efx = [efx for efx in data if efx['effectId'] == effectId]
+  efx = efx[0]
+  
+  for action in efx['actions']:
+    efxInterface = config.getInterfaceById(action['interface'])
+    if(efxInterface.settings['type'] == 'serial'):
+      # Arduino Serail JSON Output
+      if (efx['type'] == 'signal'):
+        if state == 1 and action['state'] == "green":
+          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 1))
+        elif state == 0 and action['state'] == "red":
+          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 1))
+        else:
+          _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], 0))     
+      else:
+        _queueCommand('{ "pin": %d, "value": %d }' % (action['pin'], state))
+    
+  return actionQueueEffects;
 
-  return jsonify(efx)
 
 def getActionState(efx, action, state):
   if 'states' not in efx:
