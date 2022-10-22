@@ -1,0 +1,51 @@
+[
+    {
+        "route": {
+            "name": "CTY NB",
+            "id": 1,
+            "line": "Valley",
+            "destinations": [3,5]
+        }
+    },
+    {
+        "route": {
+            "name": "CTY SB",
+            "id": 2,
+            "line": "Valley",
+            "destinations": [3,4,5,6]
+        }
+    },
+    {
+        "route": {
+            "name": "TS 1",
+            "id": 3,
+            "line": "Valley",
+            "destinations": [1,2]
+        }
+    },
+    {
+        "route": {
+            "name": "TS 2",
+            "id": 4,
+            "line": "Valley",
+            "destinations": [2]
+        }
+    },
+    {
+        "route": {
+            "name": "TS 3",
+            "id": 5,
+            "line": "Valley",
+            "destinations": [1,2]
+        }
+    },
+    {
+        "route": {
+            "name": "TS 4",
+            "id": 6,
+            "line": "Valley",
+            "destinations": [2]
+        }
+    }
+    
+]

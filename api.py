@@ -7,6 +7,7 @@ from turnouts import turnoutsapi
 # from signals import signalsapi
 from effects import effectsapi
 from sensors import sensorsapi
+from routes import routesapi
 from locos import locosapi
 from config import config
 
@@ -23,10 +24,20 @@ logging.getLogger('flask_cors').level = logging.DEBUG
 # host = config.appConfig['apiHost']
 host = '0.0.0.0'
   
-# /turnouts
+# / (root - config)
 @app.route('/', methods=['GET'])
 def layout_config():
   return config.get()
+  
+# /routes
+@app.route('/routes', methods=['GET'])
+def routes():
+  return routessapi.get()
+
+# /routes
+@app.route('/routes/<int:route_id>', methods=['GET'])
+def get_route(route_id):
+  return routesapi.get(route_id)
   
 # /turnouts
 @app.route('/turnouts', methods=['GET'])
