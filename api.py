@@ -32,7 +32,7 @@ def layout_config():
 # /routes
 @app.route('/routes', methods=['GET'])
 def routes():
-  return routessapi.get()
+  return routesapi.get()
 
 # /routes
 @app.route('/routes/<int:route_id>', methods=['GET'])

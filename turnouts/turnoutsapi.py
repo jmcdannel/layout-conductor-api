@@ -54,15 +54,15 @@ def _sendMQTTCommand(cmd, interface, clientId):
 
 def init():
   data = get_file()
-  for turnout in data:
-    if 'relay' in turnout:
-      relayInterface = config.getInterfaceById(turnout['relay']['interface'])
-      if relayInterface is not None and relayInterface.settings['type'] == 'GPIO':
-        relayInterface.interface.setup(turnout['relay']['pin'], relayInterface.interface.OUT)
-        if 'relayCrossover' in turnout:
-          relayXInterface = config.getInterfaceById(turnout['relayCrossover']['interface'])
-          if relayXInterface is not None and relayXInterface.settings['type'] == 'GPIO':
-            relayXInterface.interface.setup(turnout['relayCrossover']['pin'], relayXInterface.interface.OUT)
+  # for turnout in data:
+  #   if 'relay' in turnout:
+  #     relayInterface = config.getInterfaceById(turnout['relay']['interface'])
+  #     if relayInterface is not None and relayInterface.settings['type'] == 'GPIO':
+  #       relayInterface.interface.setup(turnout['relay']['pin'], relayInterface.interface.OUT)
+  #       if 'relayCrossover' in turnout:
+  #         relayXInterface = config.getInterfaceById(turnout['relayCrossover']['interface'])
+  #         if relayXInterface is not None and relayXInterface.settings['type'] == 'GPIO':
+  #           relayXInterface.interface.setup(turnout['relayCrossover']['pin'], relayXInterface.interface.OUT)
       
 
 def get(turnout_id=None):
@@ -86,22 +86,23 @@ def put(turnout_id):
     abort(400)
 
   turnout = turnouts[0]
-  turnoutInterface = config.getInterfaceById(turnout['interface'])
+  turnoutInterface = config.getInterfaceById(turnout['config']['interface'])
   
   for key in request.json:
     turnout[key] = request.json.get(key, turnout[key])
 
-  if 'effects' in turnout:
-    for effectId in turnout['effects']:
-      _queueEffect(effectId, turnout['state'])
+  # if 'effects' in turnout:
+  #   for effectId in turnout['effects']:
+  #     _queueEffect(effectId, turnout['state'])
 
   if turnout['config']['type'] == 'kato' and turnoutInterface.settings['type'] == 'serial':
-    _queueCommand('{ "turnoutIdx": %d, "state": %d }' % (turnout['config']["payload"]["turnoutIdx"], turnout['state']), 'turnout')
+    _queueCommand('{ "turnoutIdx": %d, "state": %d }' % (turnout['config']["turnoutIdx"], turnout['state']), 'turnout')
     
   if turnout['config']['type'] == 'servo':
-    if 'servo' in turnout:
+    if 'servo' in turnout['config']:
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'ServoKit':
-        turnoutInterface.interface.servo[turnout['servo']].angle = turnout['current']
+        # if turnout['state']
+        turnoutInterface.interface.servo[turnout['config']['servo']].angle = turnout['current']
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'PCA9685':
         print('setting PCA9685')
         print(turnout['servo'])
@@ -122,7 +123,7 @@ def put(turnout_id):
   # if 'relayCrossover' in turnout:
   #   relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
   
-  execQueue(turnoutInterface.interface)
+  # execQueue(turnoutInterface.interface)
 
   # save all keys
   with open(path, 'w') as turnout_file:

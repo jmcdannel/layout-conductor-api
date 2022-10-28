@@ -3,6 +3,7 @@
   "name": "Beta Track Junction",
   "modules": [
     "turnouts",
+    "routes",
     "locos",
     "effects"
   ],
