@@ -7,8 +7,13 @@ from turnouts import turnoutsapi
 # from signals import signalsapi
 from effects import effectsapi
 from sensors import sensorsapi
+from routes import routesapi
 from locos import locosapi
 from config import config
+
+# initialize Configuration for API
+device_id = "jmripi"
+config.initializeInterfaces(device_id)
 
 # intialize server
 app = Flask(__name__)
@@ -16,12 +21,23 @@ cors = CORS(app)
 logging.getLogger('flask_cors').level = logging.DEBUG
 
 # configure app
-appConfig = config.getConfig()
-host = appConfig['apiHost']
-turnoutsapi.init()
-# signalsapi.init()
-effectsapi.init()
-sensorsapi.init()
+# host = config.appConfig['apiHost']
+host = '0.0.0.0'
+  
+# / (root - config)
+@app.route('/', methods=['GET'])
+def layout_config():
+  return config.get()
+  
+# /routes
+@app.route('/routes', methods=['GET'])
+def routes():
+  return routesapi.get()
+
+# /routes
+@app.route('/routes/<int:route_id>', methods=['GET'])
+def get_route(route_id):
+  return routesapi.get(route_id)
   
 # /turnouts
 @app.route('/turnouts', methods=['GET'])
@@ -34,7 +50,8 @@ def get_turnout(turnout_id):
 
 @app.route('/turnouts/<int:turnout_id>', methods=['PUT'])
 def update_turnout(turnout_id):
-  return turnoutsapi.put(turnout_id)
+  if turnout_id:
+    return turnoutsapi.put(turnout_id)
 
 # /signals
 # @app.route('/signals', methods=['GET'])
@@ -80,6 +97,16 @@ def locos():
 def get_loco(loco_id):
   return locosapi.get(loco_id)
 
+@app.route('/locos/<int:loco_id>', methods=['PUT'])
+def update_loco(loco_id):
+  return locosapi.put(loco_id)
+
+turnoutsapi.init()
+# signalsapi.init()
+# effectsapi.init()
+# sensorsapi.init()
+
 if __name__ == '__main__':
-    app.run(host=host)
-    # app.run(host='0.0.0.0')
+    # app.run(host=host)
+    # app.run(host='localhost')
+    app.run(host='0.0.0.0')

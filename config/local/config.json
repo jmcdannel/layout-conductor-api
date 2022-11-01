@@ -1,0 +1,46 @@
+{
+  "layoutId": "betatrack",
+  "name": "Beta Track Junction",
+  "modules": [
+    "turnouts",
+    "routes",
+    "locos",
+    "effects"
+  ],
+  "devices": [
+    {
+      "type": "arduino",
+      "id": "cmd",
+      "desc": "Command Station EX"
+    },
+    {
+      "type": "arduino",
+      "id": "betatrack-serial",
+      "desc": "Arduino Direct Serial Control"
+    },
+    {
+      "type": "pi",
+      "id": "jmripi",
+      "desc": "RPi w/JMRI",
+      "connectedDevices": ["cmd", "betatrack-serial"]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "cmd-serial",
+      "type": "serial",
+      "device": "cmd",
+      "serial": "/dev/cu.usbmodem143301",
+      "baud": 115200
+    },
+    {
+      "id": "betatrack-layout",
+      "type": "serial",
+      "device": "betatrack-serial",
+      "serial": "/dev/cu.usbserial-143430",
+      "baud": 115200
+    }
+  ],
+  "apiHost": "localhost",
+  "jmri": "http://localhost:12080/json/"
+}

@@ -1,0 +1,56 @@
+{
+  "layoutId": "tam",
+  "name": "Tamarack Junction",
+  "modules": [
+    "turnouts",
+    "locos",
+    "effects"
+  ],
+  "devices": [
+    {
+      "type": "arduino",
+      "id": "cmd",
+      "desc": "Command Station EX"
+    },
+    {
+      "type": "arduino",
+      "id": "station",
+      "desc": "Tamarack Station Arduino"
+    },
+    {
+      "type": "pi",
+      "id": "jmripi",
+      "desc": "RPi w/JMRI",
+      "connectedDevices": ["cmd", "station"]
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "cmd-serial",
+      "type": "serial",
+      "device": "cmd",
+      "serial": "/dev/ttyACM2",
+      "baud": 115200
+    },
+    {
+      "id": "station-serial",
+      "type": "serial",
+      "device": "station",
+      "serial": "/dev/ttyACM3",
+      "baud": 115200
+    },
+    {
+      "id": "jmripi-GPIO",
+      "type": "GPIO",
+      "device": "jmripi"
+    },
+    {
+      "id": "mqttMain",
+      "type": "mqtt",
+      "device": "jmripi",
+      "address": "192.168.86.243"
+    }
+  ],
+  "apiHost": "localhost",
+  "jmri": "http://localhost:12080/json/"
+}
