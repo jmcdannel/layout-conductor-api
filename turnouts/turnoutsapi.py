@@ -13,6 +13,8 @@ def get_file():
 
 def _queueCommand(cmd, action):
   global actionQueue
+  print('_queueCommand')
+  print(actionQueue)
   if actionQueue != '':
     actionQueue = actionQueue + ','
   actionQueue = actionQueue + '{ "action": "' + action + '", "payload":' + cmd + '}'
@@ -27,6 +29,8 @@ def _queueEffect(effectId, state):
 
 def execQueue(interface):
   global actionQueue
+  print('execQueue')
+  print(actionQueue)
   print('cmd: %s' % actionQueue)
   if interface is not None and actionQueue != '':
     actionQueue = '[' + actionQueue + ']'
@@ -123,7 +127,7 @@ def put(turnout_id):
   # if 'relayCrossover' in turnout:
   #   relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
   
-  # execQueue(turnoutInterface.interface)
+  execQueue(turnoutInterface.interface)
 
   # save all keys
   with open(path, 'w') as turnout_file:
