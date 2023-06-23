@@ -13,6 +13,8 @@ def get_file():
 
 def _queueCommand(cmd, action):
   global actionQueue
+  print('_queueCommand')
+  print(actionQueue)
   if actionQueue != '':
     actionQueue = actionQueue + ','
   actionQueue = actionQueue + '{ "action": "' + action + '", "payload":' + cmd + '}'
@@ -27,6 +29,8 @@ def _queueEffect(effectId, state):
 
 def execQueue(interface):
   global actionQueue
+  print('execQueue')
+  print(actionQueue)
   print('cmd: %s' % actionQueue)
   if interface is not None and actionQueue != '':
     actionQueue = '[' + actionQueue + ']'
@@ -101,21 +105,29 @@ def put(turnout_id):
   if turnout['config']['type'] == 'servo':
     if 'servo' in turnout['config']:
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'ServoKit':
-        # if turnout['state']
-        turnoutInterface.interface.servo[turnout['config']['servo']].angle = turnout['current']
+        if turnout['state'] is True:
+          turnoutInterface.interface.servo[turnout['config']['servo']].angle = turnout['config']['straight']
+        else:
+          turnoutInterface.interface.servo[turnout['config']['servo']].angle = turnout['config']['divergent']
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'PCA9685':
         print('setting PCA9685')
-        print(turnout['servo'])
+        print(turnout['config']['servo'])
         print(turnoutInterface.interface)
         print(turnoutInterface.interface.set_pwm)
-        turnoutInterface.interface.set_pwm(turnout['servo'], 0, turnout['current'])
+        if turnout['state'] is True:
+          turnoutInterface.interface.set_pwm(turnout['config']['servo'], 0, turnout['config']['straight'])
+        else:
+          turnoutInterface.interface.set_pwm(turnout['config']['servo'], 0, turnout['config']['divergent'])
       if turnoutInterface is not None and turnoutInterface.settings['type'] == 'serial':
         # _sendActionCommand('{ "servo": %d, "value": %d }' % (turnout['servo'], turnout['current']), turnoutInterface.interface)
-        _queueCommand('{ "servo": %d, "pwm": "%s", "value": %d }' % (turnout['servo'], turnout['pwm'], turnout['current']), 'servo')
-      if turnoutInterface is not None and turnoutInterface.settings['type'] == 'mqtt':
-        _sendMQTTCommand('{ "servo": %d, "pwm": "%s", "value": %d }' % (turnout['servo'], turnout['pwm'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
-    if 'pin' in turnout:
-      _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['current']), turnoutInterface.interface)
+        if turnout['state'] is True:
+          _queueCommand('{ "servo": %d, "pwm": "%s", "value": %d }' % (turnout['config']['servo'], turnout['config']['pwm'], turnout['config']['straight']), 'servo')
+        else:
+          _queueCommand('{ "servo": %d, "pwm": "%s", "value": %d }' % (turnout['config']['servo'], turnout['config']['pwm'], turnout['config']['divergent']), 'servo')
+      # if turnoutInterface is not None and turnoutInterface.settings['type'] == 'mqtt':
+        # _sendMQTTCommand('{ "servo": %d, "pwm": "%s", "value": %d }' % (turnout['servo'], turnout['pwm'], turnout['current']), turnoutInterface.interface, turnoutInterface.settings['id'])
+    if 'pin' in turnout['config']:
+      _sendCommand('{ "pin": %d, "value": %d }' % (turnout['pin'], turnout['state']), turnoutInterface.interface)
 
   # if 'relay' in turnout:
   #   relay(turnout['relay'], turnout['current'] == turnout['straight'])
@@ -123,7 +135,7 @@ def put(turnout_id):
   # if 'relayCrossover' in turnout:
   #   relay(turnout['relayCrossover'], turnout['current'] == turnout['straight'])
   
-  # execQueue(turnoutInterface.interface)
+  execQueue(turnoutInterface.interface)
 
   # save all keys
   with open(path, 'w') as turnout_file:
