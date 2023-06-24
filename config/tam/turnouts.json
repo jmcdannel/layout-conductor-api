@@ -1,229 +1,327 @@
 [
   {
-    "current": 60,
-    "divergent": 60,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 60,
+      "straight": 120,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 5
+    },
     "name": "TS X S1",
-    "pwm": "tsn",
-    "relay": {
-      "divergent": false,
-      "interface": "station-serial",
-      "pin": 51,
-      "straight": true
-    },
-    "relayCrossover": {
-      "divergent": true,
-      "interface": "station-serial",
-      "pin": 49,
-      "straight": false
-    },
-    "servo": 5,
-    "straight": 120,
-    "turnoutId": 101,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 101
   },
   {
-    "current": 90,
-    "default": "straight",
-    "divergent": 30,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 30,
+      "straight": 90,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 9
+    },
     "name": "TS S2",
-    "pwm": "tsn",
-    "relay": {
-      "divergent": false,
-      "interface": "station-serial",
-      "pin": 47,
-      "straight": true
-    },
-    "servo": 9,
-    "straight": 90,
-    "turnoutId": 102,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 102
   },
   {
-    "current": 120,
-    "default": "straight",
-    "divergent": 60,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 60,
+      "straight": 120,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 8
+    },
     "name": "TS S3",
-    "pwm": "tsn",
-    "relay": {
-      "divergent": false,
+    "state": false,
+    "turnoutId": 103
+  },
+  {
+    "config": {
       "interface": "station-serial",
-      "pin": 45,
-      "straight": true
+      "divergent": 120,
+      "straight": 40,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 7
     },
-    "servo": 8,
-    "straight": 120,
-    "turnoutId": 103,
-    "type": "servo"
-  },
-  {
-    "current": 40,
-    "default": "straight",
-    "divergent": 120,
-    "interface": "station-serial",
     "name": "TS S4",
-    "pwm": "tsn",
-    "servo": 7,
-    "straight": 40,
-    "turnoutId": 104,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 104
   },
   {
-    "current": 110,
-    "default": "straight",
-    "divergent": 110,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 110,
+      "straight": 50,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 6
+    },
     "name": "TS S5",
-    "pwm": "tsn",
-    "servo": 6,
-    "straight": 50,
-    "turnoutId": 105,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 105
   },
   {
-    "current": 40,
-    "default": "straight",
-    "divergent": 120,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 120,
+      "straight": 40,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 4
+    },
     "name": "TS S6",
-    "pwm": "tsn",
-    "servo": 4,
-    "straight": 40,
-    "turnoutId": 106,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 106
   },
   {
-    "current": 40,
-    "default": "straight",
-    "divergent": 80,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 80,
+      "straight": 40,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 3
+    },
     "name": "TS S7",
-    "pwm": "tsn",
-    "servo": 3,
-    "straight": 40,
-    "turnoutId": 107,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 107
   },
   {
-    "current": 120,
-    "default": "straight",
-    "divergent": 120,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 120,
+      "straight": 60,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 2
+    },
     "name": "TS S8",
-    "pwm": "tsn",
-    "servo": 2,
-    "straight": 60,
-    "turnoutId": 108,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 108
   },
   {
-    "current": 50,
-    "default": "straight",
-    "divergent": 30,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 30,
+      "straight": 50,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 1
+    },
     "name": "TS S9",
-    "pwm": "tsn",
-    "servo": 1,
-    "straight": 50,
-    "turnoutId": 109,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 109
   },
   {
-    "current": 40,
-    "default": "straight",
-    "divergent": 40,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 40,
+      "straight": 100,
+      "pwm": "tsn",
+      "type": "servo",
+      "servo": 0
+    },
     "name": "TS S10",
-    "pwm": "tsn",
-    "servo": 0,
-    "straight": 100,
-    "turnoutId": 110,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 110
   },
   {
-    "current": 83,
-    "default": "straight",
-    "divergent": 70,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 70,
+      "straight": 83,
+      "pwm": "cty",
+      "type": "servo",
+      "servo": 1
+    },
     "name": "DT IN",
-    "pwm": "cty",
-    "servo": 0,
-    "straight": 83,
-    "turnoutId": 205,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 205
   },
   {
-    "current": 120,
-    "default": "straight",
-    "divergent": 105,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 105,
+      "straight": 120,
+      "pwm": "cty",
+      "type": "servo",
+      "servo": 1
+    },
     "name": "DT IN1",
-    "pwm": "cty",
-    "servo": 1,
-    "straight": 120,
-    "turnoutId": 201,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 201
   },
   {
-    "current": 70,
-    "default": "straight",
-    "divergent": 70,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 70,
+      "straight": 60,
+      "pwm": "cty",
+      "type": "servo",
+      "servo": 2
+    },
     "name": "DT IN2",
-    "pwm": "cty",
-    "servo": 2,
-    "straight": 60,
-    "turnoutId": 202,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 202
   },
   {
-    "current": 80,
-    "default": "straight",
-    "divergent": 65,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 65,
+      "straight": 80,
+      "pwm": "cty",
+      "type": "servo",
+      "servo": 3
+    },
     "name": "DT CS",
-    "pwm": "cty",
-    "servo": 3,
-    "straight": 80,
-    "turnoutId": 203,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 203
   },
   {
-    "current": 60,
-    "default": "straight",
-    "divergent": 75,
-    "interface": "station-serial",
+    "config": {
+      "interface": "station-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "cty",
+      "type": "servo",
+      "servo": 4
+    },
     "name": "DT MTN",
-    "pwm": "cty",
-    "servo": 4,
-    "straight": 60,
-    "turnoutId": 204,
-    "type": "servo"
+    "state": false,
+    "turnoutId": 204
   },
   {
-    "current": 60,
-    "default": "straight",
-    "divergent": 75,
-    "interface": "station-north-serial",
-    "name": "TN 1",
-    "pwm": "tss",
-    "servo": 0,
-    "straight": 60,
-    "turnoutId": 301,
-    "type": "servo"
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 0
+    },
+    "name": "TS X N",
+    "state": false,
+    "turnoutId": 300
   },
   {
-    "current": 75,
-    "default": "straight",
-    "divergent": 75,
-    "interface": "station-north-serial",
-    "name": "TN 2",
-    "pwm": "tss",
-    "servo": 1,
-    "straight": 60,
-    "turnoutId": 302,
-    "type": "servo"
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 1
+    },
+    "name": "TS N1",
+    "state": false,
+    "turnoutId": 301
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 2
+    },
+    "name": "TS N2",
+    "state": false,
+    "turnoutId": 302
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 3
+    },
+    "name": "TS N3",
+    "state": false,
+    "turnoutId": 303
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 4
+    },
+    "name": "TS N4",
+    "state": false,
+    "turnoutId": 304
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 5
+    },
+    "name": "TS N5",
+    "state": false,
+    "turnoutId": 305
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 6
+    },
+    "name": "TS N6",
+    "state": false,
+    "turnoutId": 306
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 7
+    },
+    "name": "TS N7",
+    "state": false,
+    "turnoutId": 307
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 8
+    },
+    "name": "TS N8",
+    "state": false,
+    "turnoutId": 308
+  },
+  {
+    "config": {
+      "interface": "station-north-serial",
+      "divergent": 75,
+      "straight": 60,
+      "pwm": "tss",
+      "type": "servo",
+      "servo": 9
+    },
+    "name": "TS N9",
+    "state": false,
+    "turnoutId": 309
   }
 ]

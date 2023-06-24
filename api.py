@@ -12,7 +12,7 @@ from locos import locosapi
 from config import config
 
 # initialize Configuration for API
-device_id = "jmripi"
+device_id = "TamamarackJunctionMBP"
 config.initializeInterfaces(device_id)
 
 # intialize server

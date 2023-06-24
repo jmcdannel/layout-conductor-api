@@ -31,9 +31,11 @@ def execQueue(interface):
   global actionQueue
   print('execQueue')
   print(actionQueue)
-  print('cmd: %s' % actionQueue)
+  print('interface')
+  print(interface)
   if interface is not None and actionQueue != '':
     actionQueue = '[' + actionQueue + ']'
+    print('cmd: %s' % actionQueue)
     interface.write(actionQueue.encode())
   actionQueue = ''
 

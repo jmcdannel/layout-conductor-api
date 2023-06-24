@@ -14,15 +14,10 @@
       "desc": "Command Station EX"
     },
     {
-      "type": "arduino",
-      "id": "betatrack-serial",
-      "desc": "Arduino Direct Serial Control"
-    },
-    {
-      "type": "pi",
-      "id": "jmripi",
-      "desc": "RPi w/JMRI",
-      "connectedDevices": ["cmd", "betatrack-serial"]
+      "type": "mac",
+      "id": "TamamarackJunctionMBP",
+      "desc": "Macbook Pro w/JMRI",
+      "connectedDevices": ["cmd", "betatrack-layout"]
     }
   ],
   "interfaces": [
@@ -30,14 +25,14 @@
       "id": "cmd-serial",
       "type": "serial",
       "device": "cmd",
-      "serial": "/dev/cu.usbmodem143301",
+      "serial": "/dev/cu.usbmodem143101",
       "baud": 115200
     },
     {
       "id": "betatrack-layout",
       "type": "serial",
-      "device": "betatrack-serial",
-      "serial": "/dev/cu.usbserial-143430",
+      "device": "cmd",
+      "serial": "/dev/tty.usbserial-14330",
       "baud": 115200
     }
   ],

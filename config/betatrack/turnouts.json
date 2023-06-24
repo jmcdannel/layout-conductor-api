@@ -1,16 +1,1 @@
-[
-  {
-    "config": {
-      "interface": "betatrack-layout",
-      "turnoutIdx": 0,
-      "type": "kato"
-    },
-    "effects": [
-      101,
-      201
-    ],
-    "name": "BT1",
-    "state": false,
-    "turnoutId": 101
-  }
-]
+[{"config": {"divergent": 75, "interface": "station-north-serial", "pwm": "tss", "servo": 4, "straight": 60, "type": "servo"}, "name": "TS N4", "state": false, "turnoutId": 304}, {"config": {"interface": "betatrack-layout", "turnoutIdx": 0, "type": "kato"}, "effects": [{"effectId": 101, "state": "red"}, 101, 201], "name": "BT1", "state": true, "turnoutId": 101}]
